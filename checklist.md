@@ -64,23 +64,23 @@
   - [ ] `DATABASE_URL` = postgresql://user:password@db:5432/appname
   - [ ] `ALLOWED_HOSTS` = localhost,yourdomain.com
   - [ ] `SUPABASE_URL` = URL do projeto Supabase
-  - [ ] `SUPABASE_ANON_KEY` = Chave anônima Supabase
+  - [x] `SUPABASE_KEY` = Chave anônima Supabase
   - [x] Criar arquivo `.env.example` no backend com todas as variáveis
 
 - [x] **Frontend - Variáveis Críticas**
   - [ ] `REACT_APP_API_URL` = http://yourdomain.com:8000 (desenvolvimento) ou https://yourdomain.com (produção)
   - [ ] `REACT_APP_SUPABASE_URL` = URL do projeto Supabase
-  - [ ] `REACT_APP_SUPABASE_ANON_KEY` = Chave anônima Supabase
+  - [x] `REACT_APP_SUPABASE_ANON_KEY` = Chave anônima Supabase
   - [x] Criar arquivo `.env.example` no frontend com todas as variáveis
 
 ### 0.4 Conta Supabase - Setup Gratuito
 
-- [ ] **Criar Conta e Projeto Supabase**
-  - [ ] Acessar https://supabase.com (gratuito)
-  - [ ] Criar novo projeto (PostgreSQL 16)
-  - [ ] Copiar `SUPABASE_URL` e `SUPABASE_ANON_KEY`
-  - [ ] Habilitar Auth (Email/Password)
-  - [ ] Habilitar RLS (Row Level Security) nas tabelas
+- [x] **Criar Conta e Projeto Supabase**
+  - [x] Acessar https://supabase.com (gratuito)
+  - [x] Criar novo projeto (PostgreSQL 16)
+  - [x] Copiar `SUPABASE_URL` e `SUPABASE_ANON_KEY`
+  - [x] Habilitar Auth (Email/Password)
+  - [x] Habilitar RLS (Row Level Security) nas tabelas
   - [ ] Configurar Storage para fotos/PDFs
 
 ### 0.5 Design e Prototipagem
@@ -104,8 +104,8 @@
 
 ## 🗄️ FASE 1: BANCO DE DADOS E AUTENTICAÇÃO (Semana 1-2)
 
-###- [x] **1.1 Schema do Banco de Dados**
-  - [x] Criar migrações/scripts SQL para tabelas core (`users`, `customers`, etc):**
+### 1.1 Schema do Banco de Dados
+- [x] **Criar migrações/scripts SQL para tabelas core (`users`, `customers`, etc)**
 
 - [ ] **Tabela: users**
   ```sql
@@ -246,9 +246,9 @@
 
 ### 1.2 RLS (Row Level Security) - Configuração
 
-- [ ] **Habilitar RLS em todas as tabelas**
-  - [ ] Somente o owner (user_id) pode ver/editar seus dados
-  - [ ] Criar políticas para cada tabela
+- [x] **Habilitar RLS em todas as tabelas**
+  - [x] Somente o owner (user_id) pode ver/editar seus dados
+  - [x] Criar políticas para cada tabela
   - [ ] Testar acesso entre usuários diferentes
 
 - [ ] **Exemplo de RLS para tabela 'customers'**
@@ -268,19 +268,19 @@
 
 ### 1.3 Autenticação Frontend
 
-- [ ] **Setup Supabase Auth no React**
-  - [ ] Instalar: `npm install @supabase/supabase-js`
-  - [ ] Criar arquivo `src/lib/supabaseClient.ts`
-  - [ ] Configurar cliente Supabase com URL e ANON_KEY
-  - [ ] Criar hook customizado `useAuth()` para autenticação
+- [x] **Setup Supabase Auth no React**
+  - [x] Instalar: `npm install @supabase/supabase-js`
+  - [x] Criar arquivo `src/lib/supabaseClient.ts` (ou .js)
+  - [x] Configurar cliente Supabase com URL e ANON_KEY
+  - [x] Criar hook customizado `useAuth()` para autenticação
 
-- [ ] **Tela de Login**
-  - [ ] Campos: Email, Senha
-  - [ ] Botão: "Entrar"
+- [x] **Tela de Login**
+  - [x] Campos: Email, Senha
+  - [x] Botão: "Entrar"
   - [ ] Link: "Criar Conta"
   - [ ] Validação de email (Zod)
-  - [ ] Tratamento de erros (credenciais inválidas)
-  - [ ] Redirecionamento após login bem-sucedido
+  - [x] Tratamento de erros (credenciais inválidas)
+  - [x] Redirecionamento após login bem-sucedido
 
 - [ ] **Tela de Registro**
   - [ ] Campos: Email, Senha, Confirmar Senha, Nome da Empresa
@@ -289,10 +289,10 @@
   - [ ] Link: "Já tem conta? Entrar"
   - [ ] Mensagem de sucesso e redirecionamento
 
-- [ ] **Protected Routes**
-  - [ ] Criar componente `ProtectedRoute`
-  - [ ] Redirecionar usuários não autenticados para login
-  - [ ] Manter sessão após refresh da página
+- [x] **Protected Routes**
+  - [x] Criar componente `ProtectedRoute`
+  - [x] Redirecionar usuários não autenticados para login
+  - [x] Manter sessão após refresh da página
 
 ### 1.4 Integração com Zustand (Estado Global)
 
@@ -307,18 +307,18 @@
 
 ### 2.1 Cadastro de Clientes (Feature M1F1)
 
-- [ ] **Tela de Cadastro**
-  - [ ] Campos obrigatórios:
-    - [ ] Nome completo (texto)
-    - [ ] Telefone/WhatsApp (máscarado: (XX) XXXXX-XXXX)
-    - [ ] Email (validado)
-    - [ ] Endereço completo para instalação (textarea)
+- [x] **Tela de Cadastro**
+  - [x] Campos obrigatórios:
+    - [x] Nome completo (texto)
+    - [x] Telefone/WhatsApp (máscarado: (XX) XXXXX-XXXX)
+    - [x] Email (validado)
+    - [x] Endereço completo para instalação (textarea)
     - [ ] Origem do contato (select: WhatsApp, indicação, Instagram, outro)
     - [ ] Status (select: Lead, Em negociação, Cliente ativo)
-  - [ ] Botões: Salvar, Cancelar
+  - [x] Botões: Salvar, Cancelar
   - [ ] Validação com React Hook Form + Zod
-  - [ ] Mensagem de sucesso após salvar
-  - [ ] Captura automática de data/hora de criação
+  - [x] Mensagem de sucesso após salvar
+  - [x] Captura automática de data/hora de criação
 
 - [ ] **Backend - Função de Criar Cliente**
   - [ ] POST `/api/customers`
@@ -344,9 +344,9 @@
 
 ### 2.3 Lista de Clientes (Feature M1F3)
 
-- [ ] **Tela de Listagem**
-  - [ ] Tabela com colunas: Nome, Telefone, Status, Origem, Último Contato
-  - [ ] Busca por nome ou telefone (em tempo real)
+- [x] **Tela de Listagem**
+  - [x] Tabela com colunas: Nome, Telefone, Status, Origem, Último Contato
+  - [x] Busca por nome ou telefone (em tempo real)
   - [ ] Filtros: Por status, origem, período (últimos 7 dias, 30 dias, etc)
   - [ ] Ordenação: Por data de cadastro, nome
   - [ ] Paginação (10, 25, 50 registros por página)

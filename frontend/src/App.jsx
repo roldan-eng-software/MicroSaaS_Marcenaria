@@ -4,6 +4,10 @@ import Login from './pages/Login';
 import AppLayout from './components/Layout/AppLayout';
 import CustomerList from './pages/Customers/CustomerList';
 import CustomerForm from './pages/Customers/CustomerForm';
+import ProjectList from './pages/Projects/ProjectList';
+import ProjectForm from './pages/Projects/ProjectForm';
+import TransactionList from './pages/Finance/TransactionList';
+import TransactionForm from './pages/Finance/TransactionForm';
 
 const PrivateRoute = ({ children }) => {
     const { user } = useAuth();
@@ -39,6 +43,10 @@ function App() {
                                     <Route path="/" element={<Dashboard />} />
                                     <Route path="/customers" element={<CustomerList />} />
                                     <Route path="/customers/new" element={<CustomerForm />} />
+                                    <Route path="/projects" element={<ProjectList />} />
+                                    <Route path="/projects/new" element={<ProjectForm />} />
+                                    <Route path="/finance" element={<TransactionList />} />
+                                    <Route path="/finance/new" element={<TransactionForm />} />
                                 </Routes>
                             </AppLayout>
                         </PrivateRoute>
