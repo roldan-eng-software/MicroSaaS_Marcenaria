@@ -104,9 +104,8 @@
 
 ## 🗄️ FASE 1: BANCO DE DADOS E AUTENTICAÇÃO (Semana 1-2)
 
-### 1.1 Schema do Banco de Dados - Criação
-
-**Executar no Supabase SQL Editor:**
+###- [x] **1.1 Schema do Banco de Dados**
+  - [x] Criar migrações/scripts SQL para tabelas core (`users`, `customers`, etc):**
 
 - [ ] **Tabela: users**
   ```sql
