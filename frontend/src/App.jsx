@@ -2,6 +2,8 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import Login from './pages/Login';
 import AppLayout from './components/Layout/AppLayout';
+import CustomerList from './pages/Customers/CustomerList';
+import CustomerForm from './pages/Customers/CustomerForm';
 
 const PrivateRoute = ({ children }) => {
     const { user } = useAuth();
@@ -30,9 +32,15 @@ function App() {
             <Router>
                 <Routes>
                     <Route path="/login" element={<Login />} />
-                    <Route path="/" element={
+                    <Route path="/*" element={
                         <PrivateRoute>
-                            <Dashboard />
+                            <AppLayout>
+                                <Routes>
+                                    <Route path="/" element={<Dashboard />} />
+                                    <Route path="/customers" element={<CustomerList />} />
+                                    <Route path="/customers/new" element={<CustomerForm />} />
+                                </Routes>
+                            </AppLayout>
                         </PrivateRoute>
                     } />
                 </Routes>
