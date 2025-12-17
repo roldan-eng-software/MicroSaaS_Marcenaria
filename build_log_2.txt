@@ -1,0 +1,66 @@
+#0 building with "desktop-linux" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile:
+#1 transferring dockerfile: 885B done
+#1 DONE 0.4s
+
+#2 [internal] load metadata for docker.io/library/python:3.11-slim
+#2 DONE 1.7s
+
+#3 [internal] load .dockerignore
+#3 transferring context:
+#3 transferring context: 2B done
+#3 DONE 0.4s
+
+#4 [internal] load build context
+#4 transferring context: 3.01kB 0.1s done
+#4 DONE 0.7s
+
+#5 [builder 1/5] FROM docker.io/library/python:3.11-slim@sha256:158caf0e080e2cd74ef2879ed3c4e697792ee65251c8208b7afb56683c32ea6c
+#5 resolve docker.io/library/python:3.11-slim@sha256:158caf0e080e2cd74ef2879ed3c4e697792ee65251c8208b7afb56683c32ea6c
+#5 resolve docker.io/library/python:3.11-slim@sha256:158caf0e080e2cd74ef2879ed3c4e697792ee65251c8208b7afb56683c32ea6c 1.2s done
+#5 DONE 1.3s
+
+#5 [builder 1/5] FROM docker.io/library/python:3.11-slim@sha256:158caf0e080e2cd74ef2879ed3c4e697792ee65251c8208b7afb56683c32ea6c
+#5 DONE 1.3s
+
+#6 [builder 4/5] COPY backend/requirements.txt .
+#6 CACHED
+
+#7 [builder 5/5] RUN pip install --no-cache-dir -r requirements.txt
+#7 CACHED
+
+#8 [stage-1 3/4] COPY --from=builder /usr/local/lib/python3.11/site-packages /usr/local/lib/python3.11/site-packages
+#8 CACHED
+
+#9 [builder 2/5] WORKDIR /app
+#9 CACHED
+
+#10 [builder 3/5] RUN apt-get update && apt-get install -y --no-install-recommends     gcc     postgresql-client     && rm -rf /var/lib/apt/lists/*
+#10 CACHED
+
+#11 [stage-1 4/4] COPY backend/ .
+#11 CACHED
+
+#12 exporting to image
+#12 exporting layers
+#12 exporting layers done
+#12 exporting manifest sha256:f977e8b6334782610788cd34c81a560ed3f94eba4ce7209c0dbab3ddd754533d
+#12 exporting manifest sha256:f977e8b6334782610788cd34c81a560ed3f94eba4ce7209c0dbab3ddd754533d 0.6s done
+#12 exporting config sha256:f2670364043de8e325b4db24fdddf3277d2c3e471b7a835d8ebae74f0face75e
+#12 exporting config sha256:f2670364043de8e325b4db24fdddf3277d2c3e471b7a835d8ebae74f0face75e 0.5s done
+#12 exporting attestation manifest sha256:7a221d31797c0eb75c3c965a38dcf52f8dc38b54a4f6cb2995f49afbc0f87d07
+#12 exporting attestation manifest sha256:7a221d31797c0eb75c3c965a38dcf52f8dc38b54a4f6cb2995f49afbc0f87d07 1.2s done
+#12 exporting manifest list sha256:8ee21ab856bf6381688bcf05a92821f131888774fe6f4147609b5deebba45c13
+#12 exporting manifest list sha256:8ee21ab856bf6381688bcf05a92821f131888774fe6f4147609b5deebba45c13 0.6s done
+#12 naming to docker.io/library/backend-test:latest
+#12 naming to docker.io/library/backend-test:latest 0.1s done
+#12 unpacking to docker.io/library/backend-test:latest
+#12 unpacking to docker.io/library/backend-test:latest 0.1s done
+#12 DONE 3.7s
+
+ [33m1 warning found (use docker --debug to expand):
+[0m - FromAsCasing: 'as' and 'FROM' keywords' casing do not match (line 2)
+
+View build details: docker-desktop://dashboard/build/desktop-linux/desktop-linux/mr80cfewggw96ravmcfukm8xu

@@ -23,8 +23,8 @@
   - [x] Criar repositório no GitHub
   - [x] Clone local do projeto
   - [x] Branch strategy: `main` (produção), `develop` (testes), `feature/*` (desenvolvimento)
-  - [ ] Configurar `.gitignore` (node_modules, .env, __pycache__, etc.)
-  - [ ] Criar arquivo `.env.example` documentando todas as variáveis
+  - [x] Configurar `.gitignore` (node_modules, .env, __pycache__, etc.)
+  - [x] Criar arquivo `.env.example` documentando todas as variáveis
 
 - [x] **Estrutura de Pastas Esperada**
   ```

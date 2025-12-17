@@ -1,0 +1,48 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    container_name: app-backend
+    ports:
+      - "8000:8000"
+    environment:
+      - NODE_ENV=development
+      - DEBUG=True
+      - DATABASE_URL=postgresql://postgres:securepassword@db:5432/appname
+      - ALLOWED_HOSTS=localhost,127.0.0.1
+    restart: unless-stopped
+    depends_on:
+      - db
+    volumes:
+      - ./backend:/app
+      - ./backend/logs:/app/logs
+
+  frontend:
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+    container_name: app-frontend
+    ports:
+      - "80:80"
+    environment:
+      - REACT_APP_API_URL=http://localhost:8000
+    restart: unless-stopped
+    depends_on:
+      - backend
+
+  db:
+    image: postgres:16-alpine
+    container_name: app-db
+    environment:
+      - POSTGRES_DB=appname
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=securepassword
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
