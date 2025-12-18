@@ -30,6 +30,7 @@ export default function QuoteForm() {
     const [fetching, setFetching] = useState(!!id);
     const [customers, setCustomers] = useState([]);
     const [materials, setMaterials] = useState([]);
+    const [fixedCosts, setFixedCosts] = useState(null);
 
     // Form state
     const [selectedCustomer, setSelectedCustomer] = useState('');
@@ -46,12 +47,14 @@ export default function QuoteForm() {
     }, [id]);
 
     async function fetchInitialData() {
-        const [custRes, matRes] = await Promise.all([
+        const [custRes, matRes, costRes] = await Promise.all([
             supabase.from('customers').select('id, name').order('name'),
-            supabase.from('materials').select('*').order('name')
+            supabase.from('materials').select('*').order('name'),
+            supabase.from('fixed_costs').select('*').eq('user_id', user.id).single()
         ]);
         setCustomers(custRes.data || []);
         setMaterials(matRes.data || []);
+        if (costRes.data) setFixedCosts(costRes.data);
     }
 
     async function fetchQuote() {
@@ -119,6 +122,16 @@ export default function QuoteForm() {
         }
         return subtotal - d;
     }, [subtotal, discount, discountType]);
+
+    const suggestedPrice = useMemo(() => {
+        if (!fixedCosts || subtotal === 0) return 0;
+        const margin = parseFloat(fixedCosts.profit_margin_percent) || 0;
+        const taxes = parseFloat(fixedCosts.taxes_percent) || 0;
+        const totalFactor = (margin + taxes) / 100;
+
+        if (totalFactor >= 1) return subtotal * 2; // Guard against crazy margins
+        return subtotal / (1 - totalFactor);
+    }, [subtotal, fixedCosts]);
 
     const handleSave = async (e) => {
         e.preventDefault();
@@ -426,6 +439,29 @@ export default function QuoteForm() {
                                     </div>
                                 </div>
                             </div>
+
+                            {suggestedPrice > 0 && (
+                                <div className="bg-gray-800/50 p-4 rounded-2xl border border-gray-700/50 space-y-2">
+                                    <div className="flex justify-between items-center">
+                                        <span className="text-[10px] font-black text-gray-500 uppercase tracking-widest">Preço Sugerido</span>
+                                        <span className="text-xs font-black text-primary-400 tabular-nums">
+                                            R$ {suggestedPrice.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
+                                        </span>
+                                    </div>
+                                    <button
+                                        type="button"
+                                        onClick={() => {
+                                            // To apply suggested price, we adjust the unit prices of manual items or just set notes?
+                                            // Actually, the simplest is to show it as a guide. 
+                                            // But if they want to APPLY it, we can't easily distribute it across items without logic.
+                                            // Let's just show it and allow a "Profitability Indicator".
+                                        }}
+                                        className="w-full text-[9px] font-black text-gray-400 border border-gray-700 py-1.5 rounded-lg hover:bg-gray-700 transition-all uppercase tracking-tighter"
+                                    >
+                                        Margem: {fixedCosts?.profit_margin_percent}% | Impostos: {fixedCosts?.taxes_percent}%
+                                    </button>
+                                </div>
+                            )}
 
                             <div className="h-px bg-gray-800"></div>
 

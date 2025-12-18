@@ -11,7 +11,11 @@ import {
     Clock,
     Package,
     Truck,
-    Layout
+    Layout,
+    Upload,
+    X as XIcon,
+    Image as ImageIcon,
+    Loader2
 } from 'lucide-react';
 import clsx from 'clsx';
 
@@ -35,6 +39,8 @@ export default function OSDetails() {
     const [startDate, setStartDate] = useState('');
     const [endDate, setEndDate] = useState('');
     const [technicalNotes, setTechnicalNotes] = useState('');
+    const [photos, setPhotos] = useState([]);
+    const [uploading, setUploading] = useState(false);
 
     useEffect(() => {
         fetchOS();
@@ -62,6 +68,7 @@ export default function OSDetails() {
             setStartDate(data.start_date ? data.start_date.split('T')[0] : '');
             setEndDate(data.end_date ? data.end_date.split('T')[0] : '');
             setTechnicalNotes(data.technical_notes || '');
+            setPhotos(data.photos || []);
         } catch (error) {
             console.error('Error fetching OS:', error);
             navigate('/finance/os');
@@ -82,6 +89,7 @@ export default function OSDetails() {
                     start_date: startDate || null,
                     end_date: endDate || null,
                     technical_notes: technicalNotes,
+                    photos,
                     updated_at: new Date()
                 })
                 .eq('id', id);
@@ -94,6 +102,54 @@ export default function OSDetails() {
         } finally {
             setSaving(false);
         }
+    };
+
+    const handleUpload = async (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        setUploading(true);
+        try {
+            const fileExt = file.name.split('.').pop();
+            const fileName = `${Math.random()}.${fileExt}`;
+            const filePath = `${user.id}/os/${id}/${fileName}`;
+
+            const { error: uploadError } = await supabase.storage
+                .from('photos')
+                .upload(filePath, file);
+
+            if (uploadError) throw uploadError;
+
+            const { data: { publicUrl } } = supabase.storage
+                .from('photos')
+                .getPublicUrl(filePath);
+
+            const newPhotos = [...photos, publicUrl];
+            setPhotos(newPhotos);
+
+            // Auto-save the photos to the OS
+            await supabase
+                .from('service_orders')
+                .update({ photos: newPhotos })
+                .eq('id', id);
+
+        } catch (error) {
+            console.error('Error uploading photo:', error);
+            alert('Erro ao enviar foto: ' + error.message);
+        } finally {
+            setUploading(false);
+        }
+    };
+
+    const removePhoto = async (index) => {
+        const newPhotos = photos.filter((_, i) => i !== index);
+        setPhotos(newPhotos);
+
+        // Auto-save
+        await supabase
+            .from('service_orders')
+            .update({ photos: newPhotos })
+            .eq('id', id);
     };
 
     if (loading) return <div className="p-12 text-center text-gray-500">Carregando Ordem de Serviço...</div>;
@@ -237,6 +293,46 @@ export default function OSDetails() {
                             placeholder="Descreva detalhes específicos da fabricação, ferragens, cores, ou observações para o montador..."
                             className="w-full rounded-3xl border-gray-100 bg-gray-50 p-6 text-sm focus:bg-white focus:ring-primary-500 focus:border-primary-500 transition-all font-medium leading-relaxed"
                         />
+                    </div>
+
+                    {/* Production Gallery */}
+                    <div className="bg-white p-6 sm:p-8 rounded-3xl shadow-xl border border-gray-100">
+                        <div className="flex items-center justify-between mb-8">
+                            <div className="flex items-center gap-3">
+                                <div className="h-2 w-8 bg-primary-500 rounded-full"></div>
+                                <h2 className="text-xl font-black text-gray-900 tracking-tight">Galeria de Produção</h2>
+                            </div>
+                            <label className="cursor-pointer bg-primary-50 text-primary-600 px-6 py-3 rounded-2xl text-xs font-black uppercase tracking-widest hover:bg-primary-600 hover:text-white transition-all flex items-center gap-2">
+                                {uploading ? <Loader2 className="animate-spin h-4 w-4" /> : <Upload size={16} />}
+                                {uploading ? 'Enviando...' : 'Adicionar Foto'}
+                                <input type="file" className="hidden" accept="image/*" onChange={handleUpload} disabled={uploading} />
+                            </label>
+                        </div>
+
+                        {photos.length === 0 ? (
+                            <div className="text-center py-12 bg-gray-50/50 rounded-[32px] border-2 border-dashed border-gray-100">
+                                <ImageIcon className="h-12 w-12 text-gray-200 mx-auto mb-4" />
+                                <p className="text-gray-400 font-bold">Nenhuma foto do progresso ainda.</p>
+                                <p className="text-[10px] text-gray-400 uppercase tracking-widest mt-1">Registre as etapas da fabricação</p>
+                            </div>
+                        ) : (
+                            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+                                {photos.map((url, idx) => (
+                                    <div key={idx} className="group relative aspect-square rounded-2xl overflow-hidden border border-gray-100 shadow-sm">
+                                        <img src={url} alt={`Produção ${idx}`} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
+                                        <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                                            <button
+                                                type="button"
+                                                onClick={() => removePhoto(idx)}
+                                                className="p-3 bg-white/20 hover:bg-red-500 text-white rounded-xl backdrop-blur-md transition-all active:scale-90"
+                                            >
+                                                <XIcon size={20} />
+                                            </button>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        )}
                     </div>
                 </div>
 

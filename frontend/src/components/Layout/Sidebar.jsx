@@ -23,6 +23,7 @@ const navigation = [
     { name: 'Catálogo', href: '/catalog', icon: BookOpen },
     { name: 'Visitas', href: '/visits', icon: Calendar },
     { name: 'Materiais', href: '/finance/materials', icon: Box },
+    { name: 'Custos/Margens', href: '/finance/costs', icon: Settings },
     { name: 'Orçamentos', href: '/finance/quotes', icon: FileText },
     { name: 'Ordens de Serviço', href: '/finance/os', icon: ClipboardList },
     { name: 'Financeiro', href: '/finance', icon: TrendingUp },

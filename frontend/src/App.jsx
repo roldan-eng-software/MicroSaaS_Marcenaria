@@ -9,6 +9,7 @@ import ProjectList from './pages/Projects/ProjectList';
 import ProjectForm from './pages/Projects/ProjectForm';
 import TransactionList from './pages/Finance/TransactionList';
 import TransactionForm from './pages/Finance/TransactionForm';
+import FixedCostsForm from './pages/Finance/FixedCostsForm';
 import StandardProjectList from './pages/Catalog/StandardProjectList';
 import StandardProjectForm from './pages/Catalog/StandardProjectForm';
 import VisitList from './pages/Visits/VisitList';
@@ -47,6 +48,7 @@ function App() {
                                     <Route path="/visits/new" element={<VisitForm />} />
                                     <Route path="/visits/new/:customerId" element={<VisitForm />} />
                                     <Route path="/visits/edit/:id" element={<VisitForm />} />
+                                    <Route path="/finance/costs" element={<FixedCostsForm />} />
                                     <Route path="/finance/materials" element={<MaterialList />} />
                                     <Route path="/finance/quotes" element={<QuoteList />} />
                                     <Route path="/finance/quotes/new" element={<QuoteForm />} />

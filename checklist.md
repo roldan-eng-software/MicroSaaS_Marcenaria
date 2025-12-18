@@ -477,52 +477,52 @@
 
 ### 7.1 Geração de Ordem de Serviço (Feature M6F1)
 
-- [ ] **Trigger Automático**
-  - [ ] Quando orçamento é marcado como "Aprovado"
-  - [ ] Sistema cria automaticamente a OS
+- [x] **Trigger Automático**
+  - [x] Quando orçamento é marcado como "Aprovado"
+  - [x] Sistema cria automaticamente a OS
 
-- [ ] **Tela de Visualização de OS**
-  - [ ] Número da OS (auto-incremento)
-  - [ ] Referência ao orçamento
-  - [ ] Dados do cliente
-  - [ ] Lista completa de itens/serviços
-  - [ ] Data prevista de início
-  - [ ] Data prevista de conclusão
-  - [ ] Responsável pela execução (select com usuários)
-  - [ ] Observações técnicas (textarea)
-  - [ ] Status (select: Aguardando material, Em produção, Pronto, Instalado)
+- [x] **Tela de Visualização de OS**
+  - [x] Número da OS (auto-incremento)
+  - [x] Referência ao orçamento
+  - [x] Dados do cliente
+  - [x] Lista completa de itens/serviços
+  - [x] Data prevista de início
+  - [x] Data prevista de conclusão
+  - [x] Responsável pela execução (select com usuários)
+  - [x] Observações técnicas (textarea)
+  - [x] Status (select: Aguardando material, Em produção, Pronto, Instalado)
 
-- [ ] **Backend - OS CRUD**
-  - [ ] POST `/api/service-orders` - Criar OS (disparado por aprovação)
-  - [ ] GET `/api/service-orders/{id}` - Detalhes da OS
-  - [ ] PUT `/api/service-orders/{id}` - Atualizar status/dados
-  - [ ] GET `/api/service-orders?status=X` - Filtrar por status
+- [x] **Backend - OS CRUD**
+  - [x] POST `/api/service-orders` - Criar OS (disparado por aprovação)
+  - [x] GET `/api/service-orders/{id}` - Detalhes da OS
+  - [x] PUT `/api/service-orders/{id}` - Atualizar status/dados
+  - [x] GET `/api/service-orders?status=X` - Filtrar por status
 
-- [ ] **Edição de OS**
-  - [ ] Permitir editar datas, responsável, observações
-  - [ ] Não permitir editar itens (vem do orçamento)
+- [x] **Edição de OS**
+  - [x] Permitir editar datas, responsável, observações
+  - [x] Não permitir editar itens (vem do orçamento)
 
 ### 7.2 Contrato de Prestação de Serviço (Feature M6F2)
 
-- [ ] **Template de Contrato**
-  - [ ] Criar template editável com cláusulas padrão
-  - [ ] Armazenar em string ou arquivo
+- [x] **Template de Contrato**
+  - [x] Criar template editável com cláusulas padrão
+  - [x] Armazenar em string ou arquivo
 
-- [ ] **Tela de Geração**
-  - [ ] Auto-preenche:
-    - [ ] Nome do cliente
-    - [ ] Valor total (do orçamento)
-    - [ ] Prazos de início/conclusão
-  - [ ] Campos editáveis:
-    - [ ] Condições de pagamento detalhadas
-    - [ ] Garantias oferecidas (ex: 1 ano de garantia)
-    - [ ] Cláusula de cancelamento
-    - [ ] Observações especiais
+- [x] **Tela de Geração**
+  - [x] Auto-preenche:
+    - [x] Nome do cliente
+    - [x] Valor total (do orçamento)
+    - [x] Prazos de início/conclusão
+  - [x] Campos editáveis:
+    - [x] Condições de pagamento detalhadas
+    - [x] Garantias oferecidas (ex: 1 ano de garantia)
+    - [x] Cláusula de cancelamento
+    - [x] Observações especiais
 
-- [ ] **Geração de PDF**
-  - [ ] Botão: "Gerar PDF para Assinatura"
-  - [ ] Nomear: `contrato_cliente_data.pdf`
-  - [ ] Espaço para assinatura (X linha tracejada)
+- [x] **Geração de PDF**
+  - [x] Botão: "Gerar PDF para Assinatura"
+  - [x] Nomear: `contrato_cliente_data.pdf`
+  - [x] Espaço para assinatura (X linha tracejada)
 
 - [ ] **Upload de Contrato Assinado**
   - [ ] Depois cliente/empresa assina fisicamente ou digitalmente
@@ -530,21 +530,21 @@
   - [ ] Armazenar URL em `contracts.signed_pdf_url`
   - [ ] Registrar data de assinatura
 
-- [ ] **Backend**
-  - [ ] POST `/api/contracts` - Criar contrato
-  - [ ] GET `/api/contracts/{id}` - Recuperar contrato
+- [x] **Backend**
+  - [x] POST `/api/contracts` - Criar contrato
+  - [x] GET `/api/contracts/{id}` - Recuperar contrato
   - [ ] PUT `/api/contracts/{id}` - Upload PDF assinado
 
 ### 7.3 Acompanhamento de Status (Feature M6F3)
 
-- [ ] **Timeline Visual da OS**
-  - [ ] Mostrar etapas:
-    - [ ] Aguardando material (data de início)
-    - [ ] Em produção
-    - [ ] Pronto
-    - [ ] Instalado (data de conclusão)
-  - [ ] Botões para mudar status
-  - [ ] Histórico de mudanças
+- [x] **Timeline Visual da OS**
+  - [x] Mostrar etapas:
+    - [x] Aguardando material (data de início)
+    - [x] Em produção
+    - [x] Pronto
+    - [x] Instalado (data de conclusão)
+  - [x] Botões para mudar status
+  - [x] Histórico de mudanças
 
 - [ ] **Galeria de Fotos**
   - [ ] Adicionar fotos do progresso em cada status
@@ -558,12 +558,12 @@
 
 ### 7.4 Testes do Módulo 6
 
-- [ ] **Testes Locais**
-  - [ ] Aprovar orçamento - ✅ Cria OS automaticamente
-  - [ ] Editar OS - ✅ Atualiza dados
-  - [ ] Gerar contrato - ✅ PDF gerado
+- [x] **Testes Locais**
+  - [x] Aprovar orçamento - ✅ Cria OS automaticamente
+  - [x] Editar OS - ✅ Atualiza dados
+  - [x] Gerar contrato - ✅ PDF gerado
   - [ ] Upload contrato assinado - ✅ Salva no Supabase
-  - [ ] Mudar status - ✅ Timeline atualiza
+  - [x] Mudar status - ✅ Timeline atualiza
   - [ ] Upload foto - ✅ Galeria exibe
 
 - [ ] **Deployment para Homologação**
@@ -578,40 +578,40 @@
 
 ### 8.1 Dashboard Principal (Feature M7F1)
 
-- [ ] **Cards KPI**
-  - [ ] **Orçamentos Pendentes:** Quantidade e valor total
-  - [ ] **Taxa de Conversão:** % de aprovados vs total (últimos 30 dias)
-  - [ ] **Faturamento do Mês:** Total de orçamentos aprovados no mês
-  - [ ] **Projetos em Andamento:** Quantidade de OS com status "Em produção"
+- [x] **Cards KPI**
+  - [x] **Orçamentos Pendentes:** Quantidade e valor total
+  - [x] **Taxa de Conversão:** % de aprovados vs total (últimos 30 dias)
+  - [x] **Faturamento do Mês:** Total de orçamentos aprovados no mês
+  - [x] **Projetos em Andamento:** Quantidade de OS com status "Em produção"
 
-- [ ] **Seção: Visitas Técnicas Agendadas**
-  - [ ] Lista das próximas 5 visitas
-  - [ ] Colunas: Cliente, Data, Endereço, Responsável
-  - [ ] Botão: "Ver todos"
+- [x] **Seção: Visitas Técnicas Agendadas**
+  - [x] Lista das próximas 5 visitas
+  - [x] Colunas: Cliente, Data, Endereço, Responsável
+  - [x] Botão: "Ver todos"
 
-- [ ] **Alertas**
-  - [ ] **Orçamentos próximos de vencer:** Mostrar em destaque (válidos por menos de 3 dias)
-  - [ ] **Visitas hoje:** Badge com número de visitas agendadas
-  - [ ] **Tarefas vencidas:** Se houver OS atrasadas
+- [x] **Alertas**
+  - [x] **Orçamentos próximos de vencer:** Mostrar em destaque (válidos por menos de 3 dias)
+  - [x] **Visitas hoje:** Badge com número de visitas agendadas
+  - [x] **Tarefas vencidas:** Se houver OS atrasadas
 
-- [ ] **Gráficos (Opcional para MVP, implementar se houver tempo)**
-  - [ ] Faturamento por mês (últimos 6 meses)
+- [x] **Gráficos (Opcional para MVP, implementar se houver tempo)**
+  - [x] Faturamento por mês (últimos 6 meses)
   - [ ] Taxa de aprovação por mês
   - [ ] Projetos por categoria
 
 ### 8.2 Relatórios Básicos (Feature M7F2)
 
-- [ ] **Tela de Relatórios**
-  - [ ] Seção: Filtros
-    - [ ] Período: Data início, Data fim (date picker)
-    - [ ] Tipo de relatório (select)
-    - [ ] Botão: "Gerar Relatório"
+- [x] **Tela de Relatórios**
+  - [x] Seção: Filtros
+    - [x] Período: Data início, Data fim (date picker)
+    - [x] Tipo de relatório (select)
+    - [x] Botão: "Gerar Relatório"
 
-- [ ] **Relatório 1: Orçamentos por Período**
-  - [ ] Tabela: Número, Cliente, Data, Valor, Status
-  - [ ] Total de orçamentos
-  - [ ] Valor total em R$
-  - [ ] Taxa de aprovação
+- [x] **Relatório 1: Orçamentos por Período**
+  - [x] Tabela: Número, Cliente, Data, Valor, Status
+  - [x] Total de orçamentos
+  - [x] Valor total em R$
+  - [x] Taxa de aprovação
 
 - [ ] **Relatório 2: Taxa de Aprovação Mensal**
   - [ ] Tabela: Mês, Total, Aprovados, Recusados, Taxa %
@@ -627,15 +627,15 @@
   - [ ] Total de projetos
   - [ ] Valor total faturado
 
-- [ ] **Exportação**
+- [x] **Exportação**
   - [ ] Botão: "Exportar Excel"
-  - [ ] Botão: "Exportar PDF"
+  - [x] Botão: "Exportar PDF" (via Browser Print)
   - [ ] Usar: `xlsx` para Excel, `jsPDF` para PDF
 
 ### 8.3 Backend - Queries de Relatório
 
-- [ ] **GET `/api/reports/quotes-by-period?start=X&end=Y`**
-  - [ ] Retorna orçamentos no período
+- [x] **GET `/api/reports/quotes-by-period?start=X&end=Y`**
+  - [x] Retorna orçamentos no período
 
 - [ ] **GET `/api/reports/approval-rate?month=X&year=Y`**
   - [ ] Retorna taxa de aprovação
@@ -648,12 +648,12 @@
 
 ### 8.4 Testes do Módulo 7
 
-- [ ] **Testes Locais**
-  - [ ] Dashboard carrega - ✅ KPIs corretos
-  - [ ] Alertas aparecem - ✅ Para orçamentos vencidos
-  - [ ] Relatório de orçamentos - ✅ Dados corretos
+- [x] **Testes Locais**
+  - [x] Dashboard carrega - ✅ KPIs corretos
+  - [x] Alertas aparecem - ✅ Para orçamentos vencidos
+  - [x] Relatório de orçamentos - ✅ Dados corretos
   - [ ] Exportar Excel - ✅ Arquivo baixado
-  - [ ] Filtros funcionam - ✅ Período customizado
+  - [x] Filtros funcionam - ✅ Período customizado
 
 - [ ] **Deployment para Homologação**
   - [ ] Branch `feature/modulo-7-dashboard-relatorios`
@@ -667,12 +667,12 @@
 
 ### 9.1 Testes de Integração Completos
 
-- [ ] **Fluxo Completo End-to-End**
-  - [ ] ✅ Criar usuário → Login
-  - [ ] ✅ Cadastrar cliente → Agendar visita → Preencher formulário
-  - [ ] ✅ Projeto padrão → Criar orçamento → Enviar via WhatsApp
-  - [ ] ✅ Receber aprovação → Gerar OS → Gerar Contrato
-  - [ ] ✅ Atualizar status → Visualizar no Dashboard
+- [x] **Fluxo Completo End-to-End**
+  - [x] ✅ Criar usuário → Login
+  - [x] ✅ Cadastrar cliente → Agendar visita → Preencher formulário
+  - [x] ✅ Projeto padrão → Criar orçamento → Enviar via WhatsApp
+  - [x] ✅ Receber aprovação → Gerar OS → Gerar Contrato
+  - [x] ✅ Atualizar status → Visualizar no Dashboard
 
 - [ ] **Testes de Performance**
   - [ ] Listagem com 1000+ registros - Tempo < 2s
