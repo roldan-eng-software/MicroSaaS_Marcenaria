@@ -25,9 +25,8 @@ services:
     container_name: marcenaria-frontend
     ports:
       - "80:80"
-    # Note: Vite build-time env vars precisam estar no .env do frontend ou passadas como build args.
-    # No docker-compose, elas funcionam para runtime se o app as ler (o que SPAs não fazem sem ajuda).
-    # Para o build no Dockerfile, o ideal é ter o .env presente no contexto.
+    env_file:
+      - ./frontend/.env
     restart: unless-stopped
 
 # Volumes removidos pois o banco está no Cloud (Supabase)

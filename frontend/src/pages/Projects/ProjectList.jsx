@@ -22,16 +22,22 @@ const STATUS_LABELS = {
   cancelled: 'Cancelado'
 };
 
+import { useAuth } from '../../contexts/AuthContext';
+
 export default function ProjectList() {
+  const { user } = useAuth();
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
-    fetchProjects();
-  }, []);
+    if (user) {
+      fetchProjects();
+    }
+  }, [user]);
 
   async function fetchProjects() {
+    if (!user) return;
     try {
       const { data, error } = await supabase
         .from('projects')
@@ -41,6 +47,7 @@ export default function ProjectList() {
             name
           )
         `)
+        .eq('user_id', user.id)
         .order('created_at', { ascending: false });
 
       if (error) throw error;

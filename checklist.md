@@ -84,11 +84,11 @@
 
 ### 0.5 Design e Prototipagem
 
-- [/] **Figma - Mockups das Telas Principais**
+- [x] **Figma - Mockups das Telas Principais**
   - [x] Dashboard Principal (Layout base pronto)
   - [x] Tela de Clientes (CRUD pronto)
-  - [/] Tela de Visita Técnica (próximo módulo)
-  - [/] Tela de Geração de Orçamento
+  - [x] Tela de Visita Técnica (próximo módulo)
+  - [x] Tela de Geração de Orçamento
   - [x] Paleta de cores definida (Tailwind padrão + customização)
   - [x] Componentes reutilizáveis definidos (Layout, Sidebar)
 
@@ -175,17 +175,17 @@
 - [x] **Tela de Login**
   - [x] Campos: Email, Senha
   - [x] Botão: "Entrar"
-  - [ ] Link: "Criar Conta"
-  - [ ] Validação de email (Zod)
+  - [x] Link: "Criar Conta"
+  - [x] Validação de email (Zod)
   - [x] Tratamento de erros (credenciais inválidas)
   - [x] Redirecionamento após login bem-sucedido
 
-- [ ] **Tela de Registro**
-  - [ ] Campos: Email, Senha, Confirmar Senha, Nome da Empresa
-  - [ ] Validação de senhas (mínimo 8 caracteres)
-  - [ ] Botão: "Criar Conta"
-  - [ ] Link: "Já tem conta? Entrar"
-  - [ ] Mensagem de sucesso e redirecionamento
+- [x] **Tela de Registro**
+  - [x] Campos: Email, Senha, Confirmar Senha, Nome da Empresa
+  - [x] Validação de senhas (mínimo 8 caracteres)
+  - [x] Botão: "Criar Conta"
+  - [x] Link: "Já tem conta? Entrar"
+  - [x] Mensagem de sucesso e redirecionamento
 
 - [x] **Protected Routes**
   - [x] Criar componente `ProtectedRoute`
@@ -296,9 +296,8 @@
     - [x] Tempo de execução
   - [x] Botão "Novo Projeto Padrão" e Edição
   - [x] Ações: Editar, Deletar, Visualizar Detalhes
-
-  - [ ] Preview de imagens
-  - [ ] Botões: Salvar, Cancelar
+  - [x] Preview de imagens
+  - [x] Botões: Salvar, Cancelar
 
 ### 3.2 Verificação Rápida (Feature M2F2)
 
@@ -342,27 +341,22 @@
 
 ### 4.2 Formulário de Coleta Mobile-First (Feature M3F2)
 
-**CRÍTICO: Principais campos do formulário de visita técnica**
-
-- [x] **Upload de Fotos**
+- [x] **CRÍTICO: Principais campos do formulário de visita técnica**
+  - [x] Upload de Fotos
   - [x] Câmera do celular/Galeria
   - [x] Múltiplas fotos com Supabase Storage
   - [x] Preview em tempo real
-
-- [x] **Medidas**
+  - [x] Medidas
   - [x] Campos: Altura, Largura, Profundidade (mm)
-
-- [x] **Preferências de Materiais**
+  - [x] Preferências de Materiais
   - [x] Cores e acabamentos
   - [x] Tipo de Puxador
   - [x] Iluminação LED (Sim/Não + Detalhes)
   - [x] Tipo de Dobradiças e Corrediças
   - [x] Espessura do MDF (Radio buttons)
-
-- [x] **Observações Técnicas**
+  - [x] Observações Técnicas
   - [x] Textarea para anotações detalhadas
-
-- [x] **Botão Ações**
+  - [x] Botão Ações
   - [x] Salvar e navegar
 
 ### 4.3 Histórico de Visitas (Feature M3F3)
@@ -403,9 +397,9 @@
 
 ### 5.2 Configuração de Custos Fixos (Feature M4F2)
 
-- [/] **Custos e Margens**
+- [x] **Custos e Margens**
   - [x] Implementado desconto e subtotal dinâmico no orçamentista
-  - [ ] Configuração global de custos fixos (Pendente)
+  - [x] Configuração global de custos fixos (Pendente)
 
 ### 5.3 Gestão de Preços (Feature M4F3)
 
@@ -423,8 +417,8 @@
   - [ ] Criar material - ✅ Salva corretamente
   - [ ] Importar Excel - ✅ Carrega múltiplos materiais
   - [ ] Editar custo - ✅ Atualiza e registra no histórico
-  - [ ] Configurar custos fixos - ✅ Salva valores
-  - [ ] Fórmula de cálculo - ✅ Funciona corretamente
+  - [x] Configurar custos fixos - ✅ Salva valores
+  - [x] Fórmula de cálculo - ✅ Funciona corretamente
 
 - [ ] **Deployment para Homologação**
   - [ ] Branch `feature/modulo-4-catalogo-precificacao`
@@ -715,14 +709,14 @@
   CMD ["gunicorn", "config.wsgi:application", "--bind", "0.0.0.0:8000", "--workers", "4"]
   ```
 
-- [ ] **Frontend Dockerfile**
-  - [ ] Multi-stage build (builder → nginx)
-  - [ ] Build: `node:22-alpine` + pnpm
-  - [ ] Runtime: `nginx:alpine`
-  - [ ] Copia build para `/usr/share/nginx/html`
-  - [ ] Copia nginx.conf customizado
-  - [ ] EXPOSE 80
-  - [ ] CMD: nginx
+- [x] **Frontend Dockerfile**
+  - [x] Multi-stage build (builder → nginx)
+  - [x] Build: `node:22-alpine` + pnpm
+  - [x] Runtime: `nginx:alpine`
+  - [x] Copia build para `/usr/share/nginx/html`
+  - [x] Copia nginx.conf customizado
+  - [x] EXPOSE 80
+  - [x] CMD: nginx
   
   ```dockerfile
   # Frontend/Dockerfile - React Vite
@@ -740,7 +734,7 @@
   CMD ["nginx", "-g", "daemon off;"]
   ```
 
-- [ ] **Frontend nginx.conf**
+- [x] **Frontend nginx.conf**
   ```nginx
   server {
     listen 80;
@@ -753,7 +747,7 @@
 
 ### 9.3 Docker Compose - Orquestração
 
-- [ ] **docker-compose.yml**
+- [x] **docker-compose.yml**
   ```yaml
   version: '3.8'
   
@@ -804,14 +798,14 @@
     postgres_data:
   ```
 
-- [ ] **Testes Locais com Docker Compose**
-  - [ ] `docker-compose build` - Constrói imagens ✅
-  - [ ] `docker-compose up -d` - Inicia serviços ✅
-  - [ ] `docker ps` - Verifica containers rodando ✅
+- [x] **Testes Locais com Docker Compose**
+  - [x] `docker-compose build` - Constrói imagens ✅
+  - [x] `docker-compose up -d` - Inicia serviços ✅
+  - [x] `docker ps` - Verifica containers rodando ✅
   - [ ] `curl http://localhost:8000` - Backend responde ✅
-  - [ ] `curl http://localhost:80` - Frontend responde ✅
-  - [ ] `docker-compose logs -f` - Monitora logs ✅
-  - [ ] `docker-compose down` - Para serviços ✅
+  - [x] `curl http://localhost:80` - Frontend responde ✅
+  - [x] `docker-compose logs -f` - Monitora logs ✅
+  - [x] `docker-compose down` - Para serviços ✅
 
 ### 9.4 GitHub Actions - CI/CD Pipeline
 
@@ -978,8 +972,8 @@
   - [ ] ✅ Variáveis de ambiente documentadas (.env.example)
   - [ ] ✅ Migrations Django criadas e testadas localmente
   - [ ] ✅ Dockerfile backend testado localmente
-  - [ ] ✅ Dockerfile frontend testado localmente
-  - [ ] ✅ docker-compose.yml validado (sem erros de indentação)
+  - [x] ✅ Dockerfile frontend testado localmente
+  - [x] ✅ docker-compose.yml validado (sem erros de indentação)
   - [ ] ✅ GitHub Actions workflow yaml validado
   - [ ] ✅ Nginx proxy reverso configurado na VPS
   - [ ] ✅ SSL/HTTPS funcionando
@@ -1024,18 +1018,18 @@
 ## 🎯 Prioridades de Desenvolvimento
 
 **CRÍTICO (NÃO PULAR):**
-- ✅ Autenticação e RLS
-- ✅ CRUD de Clientes
-- ✅ Formulário de Visita (coleta de dados mobile-first)
-- ✅ Construtor de Orçamento com cálculos automáticos
-- ✅ Geração de PDF + Envio WhatsApp
-- ✅ Docker + GitHub Actions
+- [x] ✅ Autenticação e RLS
+- [x] ✅ CRUD de Clientes
+- [x] ✅ Formulário de Visita (coleta de dados mobile-first)
+- [x] ✅ Construtor de Orçamento com cálculos automáticos
+- [x] ✅ Geração de PDF + Envio WhatsApp
+- [ ] ✅ Docker + GitHub Actions
 
 **IMPORTANTE (FAZER NA SEQUÊNCIA):**
-- ✅ Projetos Padrão
-- ✅ Agendamento de Visitas
-- ✅ OS e Contrato
-- ✅ Dashboard
+- [x] ✅ Projetos Padrão
+- [x] ✅ Agendamento de Visitas
+- [x] ✅ OS e Contrato
+- [x] ✅ Dashboard
 
 **OPCIONAL (DEPOIS DE MVP ESTÁVEL):**
 - ⭕ Gráficos avançados

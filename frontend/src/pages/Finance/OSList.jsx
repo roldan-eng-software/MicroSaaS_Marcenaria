@@ -21,16 +21,22 @@ const STATUS_CONFIG = {
     'Instalado': { color: 'text-green-700 bg-green-50 border-green-100', icon: Truck },
 };
 
+import { useAuth } from '../../contexts/AuthContext';
+
 export default function OSList() {
+    const { user } = useAuth();
     const [orders, setOrders] = useState([]);
     const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState('');
 
     useEffect(() => {
-        fetchOrders();
-    }, []);
+        if (user) {
+            fetchOrders();
+        }
+    }, [user]);
 
     async function fetchOrders() {
+        if (!user) return;
         try {
             const { data, error } = await supabase
                 .from('service_orders')
@@ -41,6 +47,7 @@ export default function OSList() {
                         customer:customers(name)
                     )
                 `)
+                .eq('user_id', user.id)
                 .order('os_number', { ascending: false });
 
             if (error) throw error;

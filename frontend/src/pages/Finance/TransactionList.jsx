@@ -4,17 +4,23 @@ import { Plus, ArrowUpCircle, ArrowDownCircle, Search, Trash2 } from 'lucide-rea
 import { Link } from 'react-router-dom';
 import clsx from 'clsx';
 
+import { useAuth } from '../../contexts/AuthContext';
+
 export default function TransactionList() {
+    const { user } = useAuth();
     const [transactions, setTransactions] = useState([]);
     const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState('');
     const [summary, setSummary] = useState({ income: 0, expense: 0, balance: 0 });
 
     useEffect(() => {
-        fetchTransactions();
-    }, []);
+        if (user) {
+            fetchTransactions();
+        }
+    }, [user]);
 
     async function fetchTransactions() {
+        if (!user) return;
         try {
             const { data, error } = await supabase
                 .from('transactions')
@@ -24,6 +30,7 @@ export default function TransactionList() {
             title
           )
         `)
+                .eq('user_id', user.id)
                 .order('date', { ascending: false });
 
             if (error) throw error;

@@ -1,39 +1,31 @@
-import { createContext, useContext, useEffect, useState } from 'react';
-import { supabase } from '../lib/supabase';
+import { createContext, useContext, useEffect } from 'react';
+import useAuthStore from '../stores/authStore';
 
+// The context is now simpler, it will just provide a way to access the zustand store
 const AuthContext = createContext({});
 
-export const useAuth = () => useContext(AuthContext);
+// The custom hook will now be a selector for the zustand store
+export const useAuth = () => useAuthStore(state => state);
 
 export const AuthProvider = ({ children }) => {
-    const [user, setUser] = useState(null);
-    const [loading, setLoading] = useState(true);
+    const init = useAuthStore(state => state.init);
+    const loading = useAuthStore(state => state.loading);
 
+    // Initialize the auth state on component mount
     useEffect(() => {
-        // Check active session
-        supabase.auth.getSession().then(({ data: { session } }) => {
-            setUser(session?.user ?? null);
-            setLoading(false);
-        });
+        const unsubscribe = init();
+        return () => {
+            if (unsubscribe) {
+                unsubscribe();
+            }
+        };
+    }, [init]);
 
-        // Listen for changes
-        const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-            setUser(session?.user ?? null);
-            setLoading(false);
-        });
-
-        return () => subscription.unsubscribe();
-    }, []);
-
-    const value = {
-        signUp: (data) => supabase.auth.signUp(data),
-        signIn: (data) => supabase.auth.signInWithPassword(data),
-        signOut: () => supabase.auth.signOut(),
-        user,
-    };
-
+    // The value provided by the context is now the entire store's state and actions
+    // but we can just use the useAuth hook directly in components.
+    // We'll keep the provider mainly for the loading gate.
     return (
-        <AuthContext.Provider value={value}>
+        <AuthContext.Provider value={{}}>
             {!loading && children}
         </AuthContext.Provider>
     );

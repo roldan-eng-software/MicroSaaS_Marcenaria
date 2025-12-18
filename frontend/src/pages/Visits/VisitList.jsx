@@ -4,16 +4,22 @@ import { supabase } from '../../lib/supabase';
 import { Plus, Calendar, MapPin, Clock, ChevronRight, User } from 'lucide-react';
 import clsx from 'clsx';
 
+import { useAuth } from '../../contexts/AuthContext';
+
 export default function VisitList() {
+    const { user } = useAuth();
     const [visits, setVisits] = useState([]);
     const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
 
     useEffect(() => {
-        fetchVisits();
-    }, []);
+        if (user) {
+            fetchVisits();
+        }
+    }, [user]);
 
     async function fetchVisits() {
+        if (!user) return;
         try {
             const { data, error } = await supabase
                 .from('technical_visits')
@@ -21,6 +27,7 @@ export default function VisitList() {
                     *,
                     customer:customers(name, address)
                 `)
+                .eq('user_id', user.id)
                 .order('scheduled_date', { ascending: true });
 
             if (error) throw error;

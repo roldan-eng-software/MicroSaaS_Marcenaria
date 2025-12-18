@@ -2,21 +2,27 @@ import { useEffect, useState } from 'react';
 import { supabase } from '../../lib/supabase';
 import { Plus, Pencil, Trash2, Search, Eye } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { useAuth } from '../../contexts/AuthContext';
 
 export default function CustomerList() {
+    const { user } = useAuth();
     const [customers, setCustomers] = useState([]);
     const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState('');
 
     useEffect(() => {
-        fetchCustomers();
-    }, []);
+        if (user) {
+            fetchCustomers();
+        }
+    }, [user]);
 
     async function fetchCustomers() {
+        if (!user) return;
         try {
             const { data, error } = await supabase
                 .from('customers')
                 .select('*')
+                .eq('user_id', user.id)
                 .order('created_at', { ascending: false });
 
             if (error) throw error;

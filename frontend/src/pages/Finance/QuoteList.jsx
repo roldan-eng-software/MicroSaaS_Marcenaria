@@ -4,17 +4,23 @@ import { supabase } from '../../lib/supabase';
 import { Plus, Search, FileText, ChevronRight, Filter, Printer, CheckCircle2, Clock, XCircle, Eye, FileSignature } from 'lucide-react';
 import clsx from 'clsx';
 
+import { useAuth } from '../../contexts/AuthContext';
+
 export default function QuoteList() {
+    const { user } = useAuth();
     const [quotes, setQuotes] = useState([]);
     const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState('');
     const navigate = useNavigate();
 
     useEffect(() => {
-        fetchQuotes();
-    }, []);
+        if (user) {
+            fetchQuotes();
+        }
+    }, [user]);
 
     async function fetchQuotes() {
+        if (!user) return;
         try {
             const { data, error } = await supabase
                 .from('quotes')
@@ -22,6 +28,7 @@ export default function QuoteList() {
                     *,
                     customer:customers(name)
                 `)
+                .eq('user_id', user.id)
                 .order('created_at', { ascending: false });
 
             if (error) throw error;

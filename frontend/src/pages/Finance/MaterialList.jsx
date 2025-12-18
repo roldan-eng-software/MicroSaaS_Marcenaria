@@ -30,14 +30,18 @@ export default function MaterialList() {
     });
 
     useEffect(() => {
-        fetchMaterials();
-    }, []);
+        if (user) {
+            fetchMaterials();
+        }
+    }, [user]);
 
     async function fetchMaterials() {
+        if (!user) return;
         try {
             const { data, error } = await supabase
                 .from('materials')
                 .select('*')
+                .eq('user_id', user.id)
                 .order('name');
 
             if (error) throw error;
