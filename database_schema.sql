@@ -36,7 +36,15 @@ CREATE TABLE public.standard_projects (
     user_id UUID REFERENCES public.profiles(id) NOT NULL,
     name TEXT NOT NULL,
     category TEXT CHECK (
-        category IN ('cozinha', 'quarto', 'closet', 'banheiro')
+        category IN (
+            'cozinha',
+            'quarto',
+            'closet',
+            'banheiro',
+            'sala',
+            'outro',
+            'comercial'
+        )
     ),
     description TEXT,
     base_price DECIMAL(10, 2),
@@ -228,7 +236,7 @@ CREATE POLICY "Users can update own customers" ON public.customers FOR
 UPDATE USING (auth.uid() = user_id);
 CREATE POLICY "Users can delete own customers" ON public.customers FOR DELETE USING (auth.uid() = user_id);
 -- Policies for Standard Projects
-CREATE POLICY "Users can manage own standard projects" ON public.standard_projects FOR ALL USING (auth.uid() = user_id);
+CREATE POLICY "Users can manage own standard projects" ON public.standard_projects FOR ALL USING (auth.uid() = user_id) WITH CHECK (auth.uid() = user_id);
 -- Policies for Technical Visits
 CREATE POLICY "Users can manage own visits" ON public.technical_visits FOR ALL USING (
     EXISTS (

@@ -1,10 +1,12 @@
 import { Link, useLocation } from 'react-router-dom';
-import { LayoutDashboard, Users, FolderKanban, Wallet, Settings } from 'lucide-react';
+import { LayoutDashboard, Users, FolderKanban, BookOpen, Wallet, Settings, Calendar } from 'lucide-react';
 import clsx from 'clsx';
 
 const navigation = [
     { name: 'Dashboard', href: '/', icon: LayoutDashboard },
+    { name: 'Catálogo', href: '/catalog', icon: BookOpen },
     { name: 'Clientes', href: '/customers', icon: Users },
+    { name: 'Visitas', href: '/visits', icon: Calendar },
     { name: 'Projetos', href: '/projects', icon: FolderKanban },
     { name: 'Financeiro', href: '/finance', icon: Wallet },
     { name: 'Perfil', href: '/profile', icon: Settings },

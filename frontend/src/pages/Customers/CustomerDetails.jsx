@@ -12,7 +12,8 @@ import {
     MessageSquare,
     Clock,
     AlertCircle,
-    CheckCircle2
+    CheckCircle2,
+    Ruler
 } from 'lucide-react';
 import InteractionForm from './InteractionForm.jsx';
 
@@ -33,6 +34,7 @@ export default function CustomerDetails() {
     const { id } = useParams();
     const [customer, setCustomer] = useState(null);
     const [interactions, setInteractions] = useState([]);
+    const [visits, setVisits] = useState([]);
     const [loading, setLoading] = useState(true);
     const [showModal, setShowModal] = useState(false);
 
@@ -59,6 +61,15 @@ export default function CustomerDetails() {
 
             if (interactionError) throw interactionError;
             setInteractions(interactionData);
+
+            const { data: visitData, error: visitError } = await supabase
+                .from('technical_visits')
+                .select('*')
+                .eq('customer_id', id)
+                .order('scheduled_date', { ascending: false });
+
+            if (visitError) throw visitError;
+            setVisits(visitData);
         } catch (error) {
             console.error('Error fetching data:', error);
         } finally {
@@ -83,11 +94,18 @@ export default function CustomerDetails() {
                             console.log('Abrindo modal de interação');
                             setShowModal(true);
                         }}
-                        className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-primary-600 hover:bg-primary-700 shadow-sm transition-all"
+                        className="inline-flex items-center px-4 py-2 border border-primary-200 text-sm font-medium rounded-xl text-primary-700 bg-white hover:bg-primary-50 transition-all"
                     >
                         <Plus className="h-4 w-4 mr-2" />
                         Nova Interação
                     </button>
+                    <Link
+                        to={`/visits/new/${id}`}
+                        className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-bold rounded-xl text-white bg-primary-600 hover:bg-primary-700 shadow-lg shadow-primary-200 transition-all"
+                    >
+                        <Ruler className="h-4 w-4 mr-2" />
+                        Agendar Visita
+                    </Link>
                 </div>
             </div>
 
@@ -131,6 +149,45 @@ export default function CustomerDetails() {
                                 </div>
                             </div>
                         </div>
+                    </div>
+
+                    {/* Quick Stats/Visits Summary */}
+                    <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+                        <h3 className="text-sm font-bold text-gray-900 mb-4 flex items-center">
+                            <Ruler className="h-4 w-4 mr-2 text-primary-500" />
+                            Visitas e Medições
+                        </h3>
+                        {visits.length === 0 ? (
+                            <p className="text-xs text-gray-500 italic">Nenhuma visita registrada.</p>
+                        ) : (
+                            <div className="space-y-3">
+                                {visits.slice(0, 3).map(visit => (
+                                    <Link
+                                        key={visit.id}
+                                        to={`/visits/edit/${visit.id}`}
+                                        className="block p-3 rounded-lg bg-gray-50 hover:bg-primary-50 transition-colors group"
+                                    >
+                                        <div className="flex justify-between items-center mb-1">
+                                            <span className="text-[10px] font-bold text-gray-400 uppercase">
+                                                {new Date(visit.scheduled_date).toLocaleDateString('pt-BR')}
+                                            </span>
+                                            <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded ${visit.status === 'Realizada' ? 'bg-green-100 text-green-700' : 'bg-blue-100 text-blue-700'
+                                                }`}>
+                                                {visit.status}
+                                            </span>
+                                        </div>
+                                        <p className="text-sm font-bold text-gray-700 group-hover:text-primary-700 tracking-tight">
+                                            {visit.measurements?.height || '0'}x{visit.measurements?.width || '0'}x{visit.measurements?.depth || '0'} mm
+                                        </p>
+                                    </Link>
+                                ))}
+                                {visits.length > 3 && (
+                                    <Link to="/visits" className="block text-center text-xs text-primary-600 font-bold hover:underline py-1">
+                                        Ver todas as {visits.length} visitas
+                                    </Link>
+                                )}
+                            </div>
+                        )}
                     </div>
                 </div>
 

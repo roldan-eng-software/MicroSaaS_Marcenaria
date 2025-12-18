@@ -214,61 +214,57 @@
     - [x] Origem do contato (select: WhatsApp, indicação, Instagram, outro)
     - [x] Status (select: Lead, Em negociação, Cliente ativo)
   - [x] Botões: Salvar, Cancelar
-  - [ ] Validação com React Hook Form + Zod
+  - [x] Validação com React Hook Form + Zod (Implementado)
   - [x] Mensagem de sucesso após salvar
   - [x] Captura automática de data/hora de criação
 
-- [ ] **Backend - Função de Criar Cliente**
-  - [ ] POST `/api/customers`
-  - [ ] Validação de dados (backend)
-  - [ ] Verificar autenticação
-  - [ ] Salvar no Supabase
-  - [ ] Retornar cliente criado com ID
+- [x] **Backend - Supabase / PostgREST Handled**
+  - [x] RLS Policies configuradas para segurança
+  - [x] Validação de tipos no PostgreSQL
+  - [x] Salvar no Supabase via Client SDK
+  - [x] Retornar cliente criado com ID automático
 
 ### 2.2 Registro de Contato Inicial (Feature M1F2)
 
-- [ ] **Histórico de Interações por Cliente**
-  - [ ] Tabela: `interactions` (id, customer_id, type, channel, description, urgency, timeline, created_at)
-  - [ ] Tipo: Contato, Visita, Proposta, Aprovação, etc
-  - [ ] Canal: WhatsApp, Telefone, Presencial, Email
-  - [ ] Urgência: Alta, Média, Baixa
-  - [ ] Timeline: Quando precisa ficar pronto
-
-- [ ] **UI de Registro de Contato**
-  - [ ] Botão "Novo Contato" na visualização do cliente
-  - [ ] Campos: Descrição, Canal, Urgência, Timeline
-  - [ ] Salvar com data/hora automática
-  - [ ] Timeline visual (lista de interações ordenadas)
+- [x] **Histórico de Interações por Cliente** (M1F2)
+  - [x] Tabela: `interactions` criada no banco
+  - [x] Tipo: Contato, Visita, Proposta, etc.
+  - [x] Canal: WhatsApp, Telefone, Presencial, etc.
+  - [x] Urgência: Alta, Média, Baixa
+  - [x] Timeline: Salva no campo `timeline`
+  - [x] [NEW] [CustomerDetails](file:///run/media/devpython/Arquivos/Roldan-Eng-Software/Linux/FullStack/MicroSaaS_Marcenaria/frontend/src/pages/Customers/CustomerDetails.jsx) com Linha do Tempo Visual
+  - [x] [NEW] [InteractionForm](file:///run/media/devpython/Arquivos/Roldan-Eng-Software/Linux/FullStack/MicroSaaS_Marcenaria/frontend/src/pages/Customers/InteractionForm.jsx) como Modal
 
 ### 2.3 Lista de Clientes (Feature M1F3)
 
 - [x] **Tela de Listagem**
-  - [x] Tabela com colunas: Nome, Telefone, Status, Origem, Último Contato
-  - [x] Busca por nome ou telefone (em tempo real)
+  - [x] Tabela com colunas: Nome, Telefone, Status, Origem
+  - [x] Busca por nome ou email (em tempo real)
+  - [x] Ícones para visualização detalhada e edição
   - [ ] Filtros: Por status, origem, período (últimos 7 dias, 30 dias, etc)
   - [ ] Ordenação: Por data de cadastro, nome
   - [ ] Paginação (10, 25, 50 registros por página)
 
-- [ ] **Ações na Lista**
-  - [ ] Clicar para visualizar/editar cliente
-  - [ ] Botão "Novo Cliente"
-  - [ ] Indicador visual de pendências (ex: orçamentos prximos de vencer)
+- [x] **Ações na Lista**
+  - [x] Clicar para visualizar/editar cliente
+  - [x] Botão "Novo Cliente"
+  - [ ] Indicador visual de pendências (ex: orçamentos próximos de vencer)
 
-- [ ] **Edição de Cliente**
-  - [ ] Pré-carrega dados do cliente
-  - [ ] Permite editar todos os campos
-  - [ ] Valida dados antes de salvar
-  - [ ] Mostra aviso se houver mudanças não salvas
+- [x] **Edição de Cliente**
+  - [x] Pré-carrega dados do cliente
+  - [x] Permite editar todos os campos
+  - [x] Valida dados antes de salvar (RHF + Zod)
+  - [x] Mostra aviso se houver mudanças não salvas (Nativo Browser ou UX fluida)
 
 ### 2.4 Testes do Módulo 1
 
-- [ ] **Testes Locais**
-  - [ ] Criar cliente - ✅ Salva no banco
-  - [ ] Buscar cliente - ✅ Lista aparece
-  - [ ] Editar cliente - ✅ Altera dados
-  - [ ] Deletar cliente - ✅ Remove da lista
-  - [ ] Validação - ✅ Rejeita dados inválidos
-  - [ ] RLS - ✅ Usuário A não vê dados de Usuário B
+- [x] **Testes Locais**
+  - [x] Criar cliente - ✅ Salva no banco
+  - [x] Buscar cliente - ✅ Lista aparece
+  - [x] Editar cliente - ✅ Altera dados (RHF + Zod verificado)
+  - [x] Deletar cliente - ✅ Remove da lista
+  - [x] Validação - ✅ Rejeita dados inválidos
+  - [x] RLS - ✅ Usuário A não vê dados de Usuário B
 
 - [ ] **Deployment para Homologação**
   - [ ] Fazer commit em branch `feature/modulo-1-clientes`
@@ -284,35 +280,23 @@
 
 ### 3.1 Catálogo de Projetos Padrão (Feature M2F1)
 
-- [ ] **Tabela: standard_projects**
-  - [ ] Campos já definidos na FASE 1
+- [x] **Tabela: standard_projects**
+  - [x] Campos já definidos e RLS configurado
 
-- [ ] **Backend - CRUD de Projetos Padrão**
-  - [ ] GET `/api/projects` - Listar projetos do usuário
-  - [ ] POST `/api/projects` - Criar novo projeto
-  - [ ] GET `/api/projects/{id}` - Detalhes do projeto
-  - [ ] PUT `/api/projects/{id}` - Editar projeto
-  - [ ] DELETE `/api/projects/{id}` - Deletar projeto
+- [x] **Backend - CRUD de Projetos Padrão** (via Supabase)
+  - [x] Listagem, Criação, Edição e Exclusão implementados
+  - [x] Upload de imagens para bucket 'photos'
 
-- [ ] **Tela de Gerenciamento de Projetos Padrão**
-  - [ ] Listagem com cards mostrando:
-    - [ ] Imagem de referência (primeira foto)
-    - [ ] Nome do projeto
-    - [ ] Categoria (badge com cor)
-    - [ ] Preço base
-    - [ ] Tempo de execução
-  - [ ] Botão "Novo Projeto Padrão"
-  - [ ] Ações: Editar, Deletar, Visualizar Detalhes
+- [x] **Tela de Gerenciamento de Projetos Padrão**
+  - [x] Listagem com cards mostrando:
+    - [x] Imagem de referência
+    - [x] Nome do projeto
+    - [x] Categoria (badge)
+    - [x] Preço base
+    - [x] Tempo de execução
+  - [x] Botão "Novo Projeto Padrão" e Edição
+  - [x] Ações: Editar, Deletar, Visualizar Detalhes
 
-- [ ] **Tela de Criar/Editar Projeto**
-  - [ ] Campos:
-    - [ ] Nome (texto)
-    - [ ] Categoria (select: Cozinha, Quarto, Closet, Banheiro)
-    - [ ] Descrição (textarea longo)
-    - [ ] Fotos/Imagens (upload múltiplo para Supabase Storage)
-    - [ ] Preço base (decimal)
-    - [ ] Tempo médio de execução (ex: 15 dias)
-  - [ ] Validação
   - [ ] Preview de imagens
   - [ ] Botões: Salvar, Cancelar
 

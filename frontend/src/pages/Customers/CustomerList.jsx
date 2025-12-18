@@ -127,9 +127,12 @@ export default function CustomerList() {
                                             >
                                                 <Eye className="h-4 w-4" />
                                             </Link>
-                                            <button className="text-gray-600 hover:text-gray-900 bg-gray-50 p-1.5 rounded-md">
+                                            <Link
+                                                to={`/customers/edit/${customer.id}`}
+                                                className="text-gray-600 hover:text-gray-900 bg-gray-50 p-1.5 rounded-md transition-colors"
+                                            >
                                                 <Pencil className="h-4 w-4" />
-                                            </button>
+                                            </Link>
                                             <button
                                                 onClick={() => handleDelete(customer.id)}
                                                 className="text-red-600 hover:text-red-900"
