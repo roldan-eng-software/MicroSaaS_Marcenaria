@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { supabase } from '../../lib/supabase';
-import { Plus, Search, FileText, ChevronRight, Filter, MoreHorizontal, CheckCircle2, Clock, XCircle, Eye } from 'lucide-react';
+import { Plus, Search, FileText, ChevronRight, Filter, Printer, CheckCircle2, Clock, XCircle, Eye } from 'lucide-react';
 import clsx from 'clsx';
 
 export default function QuoteList() {
@@ -103,60 +103,75 @@ export default function QuoteList() {
                 </div>
             ) : (
                 <div className="bg-white rounded-3xl shadow-xl border border-gray-50 overflow-hidden">
-                    <table className="min-w-full divide-y divide-gray-100">
-                        <thead className="bg-gray-50/50">
-                            <tr>
-                                <th className="px-6 py-4 text-left text-[10px] font-black text-gray-400 uppercase tracking-widest">Nº / Cliente</th>
-                                <th className="px-6 py-4 text-left text-[10px] font-black text-gray-400 uppercase tracking-widest">Data</th>
-                                <th className="px-6 py-4 text-left text-[10px] font-black text-gray-400 uppercase tracking-widest">Total</th>
-                                <th className="px-6 py-4 text-left text-[10px] font-black text-gray-400 uppercase tracking-widest">Status</th>
-                                <th className="px-6 py-4"></th>
-                            </tr>
-                        </thead>
-                        <tbody className="divide-y divide-gray-50 bg-white">
-                            {filteredQuotes.map((quote) => (
-                                <tr
-                                    key={quote.id}
-                                    className="hover:bg-gray-50/50 transition-colors cursor-pointer group"
-                                    onClick={() => navigate(`/finance/quotes/edit/${quote.id}`)}
-                                >
-                                    <td className="px-6 py-5 whitespace-nowrap">
-                                        <div className="flex items-center">
-                                            <div className="h-10 w-10 rounded-xl bg-primary-50 flex items-center justify-center text-primary-600 mr-4 font-bold text-xs ring-4 ring-white shadow-sm group-hover:bg-primary-600 group-hover:text-white transition-all">
-                                                #{quote.quote_number}
-                                            </div>
-                                            <div>
-                                                <div className="text-sm font-bold text-gray-900 group-hover:text-primary-700 transition-colors">{quote.customer?.name}</div>
-                                                <div className="text-xs text-gray-400 mt-0.5">Criado {new Date(quote.created_at).toLocaleDateString('pt-BR')}</div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td className="px-6 py-5 whitespace-nowrap">
-                                        <div className="text-sm text-gray-600">{new Date(quote.created_at).toLocaleDateString('pt-BR')}</div>
-                                    </td>
-                                    <td className="px-6 py-5 whitespace-nowrap">
-                                        <div className="text-sm font-black text-gray-900">
-                                            R$ {quote.total.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
-                                        </div>
-                                    </td>
-                                    <td className="px-6 py-5 whitespace-nowrap">
-                                        <span className={clsx(
-                                            "inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold border",
-                                            getStatusStyles(quote.status)
-                                        )}>
-                                            {getStatusIcon(quote.status)}
-                                            {quote.status}
-                                        </span>
-                                    </td>
-                                    <td className="px-6 py-5 whitespace-nowrap text-right">
-                                        <button className="text-gray-400 hover:text-primary-600 transition-colors">
-                                            <ChevronRight className="h-5 w-5" />
-                                        </button>
-                                    </td>
+                    <div className="overflow-x-auto">
+                        <table className="min-w-full divide-y divide-gray-100">
+                            <thead className="bg-gray-50/50">
+                                <tr>
+                                    <th className="px-6 py-4 text-left text-[10px] font-black text-gray-400 uppercase tracking-widest">Nº / Cliente</th>
+                                    <th className="px-6 py-4 text-left text-[10px] font-black text-gray-400 uppercase tracking-widest">Data</th>
+                                    <th className="px-6 py-4 text-left text-[10px] font-black text-gray-400 uppercase tracking-widest">Total</th>
+                                    <th className="px-6 py-4 text-left text-[10px] font-black text-gray-400 uppercase tracking-widest">Status</th>
+                                    <th className="px-6 py-4"></th>
                                 </tr>
-                            ))}
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody className="divide-y divide-gray-50 bg-white">
+                                {filteredQuotes.map((quote) => (
+                                    <tr
+                                        key={quote.id}
+                                        className="hover:bg-gray-50/50 transition-colors group"
+                                    >
+                                        <td className="px-6 py-5 whitespace-nowrap">
+                                            <div className="flex items-center">
+                                                <div className="h-10 w-10 rounded-xl bg-primary-50 flex items-center justify-center text-primary-600 mr-4 font-bold text-xs ring-4 ring-white shadow-sm group-hover:bg-primary-600 group-hover:text-white transition-all">
+                                                    #{quote.quote_number}
+                                                </div>
+                                                <div>
+                                                    <div className="text-sm font-bold text-gray-900 group-hover:text-primary-700 transition-colors">{quote.customer?.name}</div>
+                                                    <div className="text-xs text-gray-400 mt-0.5">Criado {new Date(quote.created_at).toLocaleDateString('pt-BR')}</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td className="px-6 py-5 whitespace-nowrap">
+                                            <div className="text-sm text-gray-600">{new Date(quote.created_at).toLocaleDateString('pt-BR')}</div>
+                                        </td>
+                                        <td className="px-6 py-5 whitespace-nowrap">
+                                            <div className="text-sm font-black text-gray-900">
+                                                R$ {quote.total.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
+                                            </div>
+                                        </td>
+                                        <td className="px-6 py-5 whitespace-nowrap">
+                                            <span className={clsx(
+                                                "inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold border",
+                                                getStatusStyles(quote.status)
+                                            )}>
+                                                {getStatusIcon(quote.status)}
+                                                {quote.status}
+                                            </span>
+                                        </td>
+                                        <td className="px-6 py-5 whitespace-nowrap text-right">
+                                            <div className="flex justify-end gap-2">
+                                                <Link
+                                                    to={`/finance/quotes/print/${quote.id}`}
+                                                    target="_blank"
+                                                    className="p-2 text-gray-400 hover:text-primary-600 hover:bg-primary-50 rounded-lg transition-all"
+                                                    title="Imprimir / PDF"
+                                                >
+                                                    <Printer className="h-5 w-5" />
+                                                </Link>
+                                                <Link
+                                                    to={`/finance/quotes/edit/${quote.id}`}
+                                                    className="p-2 text-gray-400 hover:text-primary-600 hover:bg-primary-50 rounded-lg transition-all"
+                                                    title="Editar"
+                                                >
+                                                    <ChevronRight className="h-5 w-5" />
+                                                </Link>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             )}
         </div>

@@ -16,6 +16,7 @@ import VisitForm from './pages/Visits/VisitForm';
 import MaterialList from './pages/Finance/MaterialList';
 import QuoteList from './pages/Finance/QuoteList';
 import QuoteForm from './pages/Finance/QuoteForm';
+import QuotePrint from './pages/Finance/QuotePrint';
 import Profile from './pages/Profile/Profile';
 
 const PrivateRoute = ({ children }) => {
@@ -61,6 +62,7 @@ function App() {
                                     <Route path="/finance/quotes" element={<QuoteList />} />
                                     <Route path="/finance/quotes/new" element={<QuoteForm />} />
                                     <Route path="/finance/quotes/edit/:id" element={<QuoteForm />} />
+                                    <Route path="/finance/quotes/print/:id" element={<QuotePrint />} />
                                     <Route path="/customers" element={<CustomerList />} />
                                     <Route path="/customers/new" element={<CustomerForm />} />
                                     <Route path="/customers/edit/:id" element={<CustomerForm />} />

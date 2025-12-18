@@ -13,9 +13,12 @@ import {
     Clock,
     FileText,
     Percent,
-    Banknote
+    Banknote,
+    Printer,
+    Phone
 } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
+import { Link } from 'react-router-dom';
 import clsx from 'clsx';
 
 export default function QuoteForm() {
@@ -217,7 +220,7 @@ export default function QuoteForm() {
             <form onSubmit={handleSave} className="grid grid-cols-1 lg:grid-cols-4 gap-8">
                 <div className="lg:col-span-3 space-y-8">
                     {/* Customer Selection */}
-                    <section className="bg-white p-8 rounded-3xl shadow-xl border border-gray-50">
+                    <section className="bg-white p-6 sm:p-8 rounded-3xl shadow-xl border border-gray-50">
                         <div className="flex items-center gap-3 mb-6">
                             <div className="h-2 w-8 bg-primary-500 rounded-full"></div>
                             <h2 className="text-xl font-black text-gray-900 tracking-tight">Dados do Cliente</h2>
@@ -239,8 +242,8 @@ export default function QuoteForm() {
                     </section>
 
                     {/* Items Management */}
-                    <section className="bg-white p-8 rounded-3xl shadow-xl border border-gray-50 overflow-hidden">
-                        <div className="flex items-center justify-between mb-8">
+                    <section className="bg-white p-6 sm:p-8 rounded-3xl shadow-xl border border-gray-50 overflow-hidden">
+                        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
                             <div className="flex items-center gap-3">
                                 <div className="h-2 w-8 bg-primary-500 rounded-full"></div>
                                 <h2 className="text-xl font-black text-gray-900 tracking-tight">Itens do Orçamento</h2>
@@ -249,14 +252,14 @@ export default function QuoteForm() {
                                 <button
                                     type="button"
                                     onClick={() => addItem()}
-                                    className="px-4 py-2 text-xs font-bold text-gray-600 hover:text-primary-600 border border-gray-100 rounded-xl hover:bg-gray-50 transition-all"
+                                    className="flex-1 sm:flex-none px-4 py-3 sm:py-2 text-xs font-bold text-gray-600 hover:text-primary-600 border border-gray-100 rounded-xl hover:bg-gray-50 transition-all"
                                 >
                                     + Item Manual
                                 </button>
                                 <button
                                     type="button"
-                                    className="px-4 py-2 text-xs font-bold text-white bg-primary-600 rounded-xl hover:bg-primary-700 shadow-md transition-all flex items-center"
-                                    onClick={() => addItem(materials[0])} // Just a shortcut, in real app show a picker
+                                    className="flex-1 sm:flex-none px-4 py-3 sm:py-2 text-xs font-bold text-white bg-primary-600 rounded-xl hover:bg-primary-700 shadow-md transition-all flex items-center justify-center font-bold"
+                                    onClick={() => addItem(materials[0])}
                                 >
                                     <Package className="h-4 w-4 mr-2" />
                                     Do Catálogo
@@ -271,54 +274,61 @@ export default function QuoteForm() {
                                     <p className="text-gray-400 font-medium">Nenhum item adicionado ainda.</p>
                                 </div>
                             ) : (
-                                <div className="space-y-3">
+                                <div className="space-y-4">
                                     {items.map((item) => (
-                                        <div key={item.id || item.tempId} className="grid grid-cols-12 gap-3 items-center bg-gray-50/30 p-4 rounded-2xl border border-gray-50 group hover:border-primary-100 hover:bg-white transition-all">
-                                            <div className="col-span-12 md:col-span-5">
+                                        <div key={item.id || item.tempId} className="flex flex-col md:grid md:grid-cols-12 gap-3 bg-gray-50/30 p-5 rounded-2xl border border-gray-50 group hover:border-primary-100 hover:bg-white transition-all transition-all duration-300">
+                                            <div className="w-full md:col-span-5">
+                                                <label className="md:hidden text-[10px] font-bold text-gray-400 uppercase mb-1 flex items-center gap-1">
+                                                    <FileText className="h-3 w-3" /> Descrição do Item
+                                                </label>
                                                 <input
-                                                    placeholder="Descrição do item..."
-                                                    className="w-full bg-transparent border-none text-sm font-bold text-gray-800 placeholder:text-gray-300 focus:ring-0"
+                                                    placeholder="O que está sendo orçado?"
+                                                    className="w-full bg-transparent border-none text-base md:text-sm font-bold text-gray-800 placeholder:text-gray-300 focus:ring-0 p-0 md:p-1"
                                                     value={item.description}
                                                     onChange={(e) => updateItem(item.id || item.tempId, 'description', e.target.value)}
                                                 />
                                             </div>
-                                            <div className="col-span-4 md:col-span-2">
-                                                <div className="flex flex-col">
-                                                    <span className="text-[10px] font-bold text-gray-400 uppercase ml-3 mb-1">QTD</span>
-                                                    <input
-                                                        type="number"
-                                                        step="0.1"
-                                                        className="w-full bg-white border border-gray-100 rounded-xl p-2 text-sm text-center font-bold focus:ring-primary-500 focus:border-primary-500"
-                                                        value={item.quantity}
-                                                        onChange={(e) => updateItem(item.id || item.tempId, 'quantity', parseFloat(e.target.value) || 0)}
-                                                    />
+
+                                            <div className="flex gap-3 w-full md:col-span-5">
+                                                <div className="flex-1">
+                                                    <div className="flex flex-col">
+                                                        <span className="text-[10px] font-bold text-gray-400 uppercase mb-1.5 ml-1">QTD</span>
+                                                        <input
+                                                            type="number"
+                                                            step="0.1"
+                                                            className="w-full bg-white border border-gray-100 rounded-xl p-3 md:p-2 text-sm text-center font-bold focus:ring-primary-500 focus:border-primary-500 shadow-sm"
+                                                            value={item.quantity}
+                                                            onChange={(e) => updateItem(item.id || item.tempId, 'quantity', parseFloat(e.target.value) || 0)}
+                                                        />
+                                                    </div>
+                                                </div>
+                                                <div className="flex-1">
+                                                    <div className="flex flex-col">
+                                                        <span className="text-[10px] font-bold text-gray-400 uppercase mb-1.5 ml-1">UNITÁRIO (R$)</span>
+                                                        <input
+                                                            type="number"
+                                                            step="0.01"
+                                                            className="w-full bg-white border border-gray-100 rounded-xl p-3 md:p-2 text-sm text-center font-bold focus:ring-primary-500 focus:border-primary-500 text-primary-700 shadow-sm"
+                                                            value={item.unit_price}
+                                                            onChange={(e) => updateItem(item.id || item.tempId, 'unit_price', parseFloat(e.target.value) || 0)}
+                                                        />
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div className="col-span-5 md:col-span-3">
-                                                <div className="flex flex-col">
-                                                    <span className="text-[10px] font-bold text-gray-400 uppercase ml-3 mb-1">UNITÁRIO (R$)</span>
-                                                    <input
-                                                        type="number"
-                                                        step="0.01"
-                                                        className="w-full bg-white border border-gray-100 rounded-xl p-2 text-sm text-center font-bold focus:ring-primary-500 focus:border-primary-500 text-primary-700"
-                                                        value={item.unit_price}
-                                                        onChange={(e) => updateItem(item.id || item.tempId, 'unit_price', parseFloat(e.target.value) || 0)}
-                                                    />
-                                                </div>
-                                            </div>
-                                            <div className="col-span-3 md:col-span-2 flex items-center justify-end gap-3">
-                                                <div className="text-right sr-only md:not-sr-only">
+
+                                            <div className="flex items-center justify-between md:justify-end gap-3 w-full md:col-span-2 mt-4 md:mt-0 pt-4 md:pt-0 border-t md:border-t-0 border-gray-100">
+                                                <div className="text-left md:text-right">
                                                     <p className="text-[10px] font-bold text-gray-400 uppercase">SUBTOTAL</p>
-                                                    <p className="text-sm font-black text-gray-900">
-                                                        {(item.quantity * item.unit_price).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
+                                                    <p className="text-lg md:text-sm font-black text-gray-900 tracking-tight">
+                                                        R$ {(item.quantity * item.unit_price).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
                                                     </p>
                                                 </div>
                                                 <button
                                                     type="button"
                                                     onClick={() => removeItem(item.id || item.tempId)}
-                                                    className="p-2 text-gray-300 hover:text-red-500 hover:bg-red-50 rounded-xl transition-all"
+                                                    className="p-3 bg-red-50 text-red-500 md:bg-transparent md:text-gray-300 md:hover:text-red-500 md:hover:bg-red-50 rounded-xl transition-all active:scale-90"
                                                 >
-                                                    <Trash2 className="h-4 w-4" />
+                                                    <Trash2 className="h-5 w-5" />
                                                 </button>
                                             </div>
                                         </div>
@@ -328,7 +338,7 @@ export default function QuoteForm() {
                         </div>
                     </section>
 
-                    <section className="bg-white p-8 rounded-3xl shadow-xl border border-gray-50 space-y-6">
+                    <section className="bg-white p-6 sm:p-8 rounded-3xl shadow-xl border border-gray-50 space-y-6">
                         <div className="flex items-center gap-3 mb-2">
                             <div className="h-2 w-8 bg-primary-500 rounded-full"></div>
                             <h2 className="text-xl font-black text-gray-900 tracking-tight">Condições e Notas</h2>
@@ -341,7 +351,7 @@ export default function QuoteForm() {
                                     onChange={(e) => setPaymentConditions(e.target.value)}
                                     rows={4}
                                     placeholder="Ex: 50% entrada, 50% entrega no cartão em 3x..."
-                                    className="w-full rounded-2xl border-gray-100 bg-gray-50 p-4 text-sm focus:bg-white focus:ring-primary-500 focus:border-primary-500 transition-all"
+                                    className="w-full rounded-2xl border-gray-100 bg-gray-50 p-4 text-sm focus:bg-white focus:ring-primary-500 focus:border-primary-500 transition-all font-medium"
                                 />
                             </div>
                             <div>
@@ -351,7 +361,7 @@ export default function QuoteForm() {
                                     onChange={(e) => setNotes(e.target.value)}
                                     rows={4}
                                     placeholder="Detalhes técnicos, ferragens específicas, prazos..."
-                                    className="w-full rounded-2xl border-gray-100 bg-gray-50 p-4 text-sm focus:bg-white focus:ring-primary-500 focus:border-primary-500 transition-all"
+                                    className="w-full rounded-2xl border-gray-100 bg-gray-50 p-4 text-sm focus:bg-white focus:ring-primary-500 focus:border-primary-500 transition-all font-medium"
                                 />
                             </div>
                         </div>
@@ -360,7 +370,7 @@ export default function QuoteForm() {
 
                 {/* Sidebar Summary */}
                 <div className="lg:col-span-1 space-y-6">
-                    <div className="bg-gray-900 text-white p-8 rounded-[40px] shadow-2xl sticky top-6 overflow-hidden">
+                    <div className="bg-gray-900 text-white p-6 sm:p-8 rounded-[32px] sm:rounded-[40px] shadow-2xl lg:sticky lg:top-24 overflow-hidden">
                         <div className="absolute top-0 right-0 p-8 opacity-10">
                             <Banknote className="h-32 w-32" />
                         </div>
@@ -387,7 +397,7 @@ export default function QuoteForm() {
                                             </button>
                                             <input
                                                 type="number"
-                                                className="bg-transparent border-b border-gray-700 w-16 text-right text-sm focus:border-primary-500 focus:ring-0"
+                                                className="bg-transparent border-b border-gray-700 w-16 text-right text-sm focus:border-primary-500 focus:ring-0 outline-none"
                                                 value={discount}
                                                 onChange={(e) => setDiscount(e.target.value)}
                                             />
@@ -412,7 +422,7 @@ export default function QuoteForm() {
                                 <button
                                     type="submit"
                                     disabled={loading}
-                                    className="w-full py-4 bg-primary-500 text-white font-black rounded-3xl hover:bg-primary-400 hover:scale-[1.02] active:scale-[0.98] transition-all shadow-xl shadow-primary-500/20 flex items-center justify-center disabled:opacity-50"
+                                    className="w-full py-4 bg-primary-500 text-white font-black rounded-3xl hover:bg-primary-400 active:scale-95 transition-all shadow-xl shadow-primary-500/20 flex items-center justify-center disabled:opacity-50"
                                 >
                                     {loading ? 'Processando...' : (
                                         <>
@@ -421,6 +431,33 @@ export default function QuoteForm() {
                                         </>
                                     )}
                                 </button>
+
+                                {id && (
+                                    <div className="grid grid-cols-2 gap-2">
+                                        <Link
+                                            to={`/finance/quotes/print/${id}`}
+                                            target="_blank"
+                                            className="py-3 bg-gray-800 text-white text-[10px] font-black uppercase rounded-2xl hover:bg-gray-700 transition-all flex items-center justify-center border border-gray-700 active:scale-95"
+                                        >
+                                            <Printer className="h-4 w-4 mr-2" />
+                                            Ver PDF
+                                        </Link>
+                                        <button
+                                            type="button"
+                                            onClick={() => {
+                                                const customer = customers.find(c => c.id === selectedCustomer);
+                                                const phone = customer?.phone?.replace(/\D/g, '');
+                                                const msg = encodeURIComponent(`Olá ${customer?.name}! Segue o link da sua proposta: ${window.location.origin}/finance/quotes/print/${id}`);
+                                                window.open(`https://wa.me/55${phone}?text=${msg}`, '_blank');
+                                            }}
+                                            className="py-3 bg-green-600 text-white text-[10px] font-black uppercase rounded-2xl hover:bg-green-500 transition-all flex items-center justify-center active:scale-95"
+                                        >
+                                            <Phone className="h-4 w-4 mr-2" />
+                                            WhatsApp
+                                        </button>
+                                    </div>
+                                )}
+
                                 <p className="text-[10px] text-center text-gray-500 font-bold tracking-tight">
                                     Pressione para gerar o orçamento oficial.
                                 </p>
@@ -429,8 +466,8 @@ export default function QuoteForm() {
                     </div>
 
                     {status === 'Aprovado' && (
-                        <div className="bg-green-900 text-white p-6 rounded-3xl border border-green-800 relative overflow-hidden group">
-                            <div className="absolute -right-4 -bottom-4 opacity-10 group-hover:scale-110 transition-transform duration-500">
+                        <div className="bg-green-900/40 text-green-100 p-6 rounded-3xl border border-green-800 relative overflow-hidden group">
+                            <div className="absolute -right-4 -bottom-4 opacity-5 group-hover:scale-110 transition-transform duration-500">
                                 <CheckCircle2 className="h-24 w-24" />
                             </div>
                             <div className="relative">
@@ -438,7 +475,7 @@ export default function QuoteForm() {
                                     <div className="h-1.5 w-1.5 rounded-full bg-green-400 animate-pulse"></div>
                                     <span className="text-[10px] font-black uppercase tracking-widest">Automação Ativa</span>
                                 </div>
-                                <p className="text-xs font-bold leading-relaxed">Este orçamento criará automaticamente um projeto ativo no sistema.</p>
+                                <p className="text-xs font-bold leading-relaxed">Este orçamento criará automaticamente um projeto ativo no sistema após salvar.</p>
                             </div>
                         </div>
                     )}

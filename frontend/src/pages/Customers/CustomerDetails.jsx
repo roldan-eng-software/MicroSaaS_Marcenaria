@@ -93,25 +93,25 @@ export default function CustomerDetails() {
     return (
         <div className="space-y-6">
             {/* Header */}
-            <div className="flex items-center justify-between">
-                <Link to="/customers" className="flex items-center text-gray-500 hover:text-primary-600 transition-colors">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <Link to="/customers" className="inline-flex items-center text-gray-500 hover:text-primary-600 transition-colors font-medium">
                     <ArrowLeft className="h-5 w-5 mr-1" />
                     Voltar para lista
                 </Link>
-                <div className="flex gap-2">
+                <div className="flex flex-col xs:flex-row gap-2">
                     <button
                         onClick={() => {
                             console.log('Abrindo modal de interação');
                             setShowModal(true);
                         }}
-                        className="inline-flex items-center px-4 py-2 border border-primary-200 text-sm font-medium rounded-xl text-primary-700 bg-white hover:bg-primary-50 transition-all"
+                        className="inline-flex items-center justify-center px-4 py-3 sm:py-2 border border-primary-200 text-sm font-medium rounded-xl text-primary-700 bg-white hover:bg-primary-50 transition-all active:scale-[0.98]"
                     >
                         <Plus className="h-4 w-4 mr-2" />
                         Nova Interação
                     </button>
                     <Link
                         to={`/visits/new/${id}`}
-                        className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-bold rounded-xl text-white bg-primary-600 hover:bg-primary-700 shadow-lg shadow-primary-200 transition-all"
+                        className="inline-flex items-center justify-center px-4 py-3 sm:py-2 border border-transparent text-sm font-bold rounded-xl text-white bg-primary-600 hover:bg-primary-700 shadow-lg shadow-primary-200 transition-all active:scale-[0.98]"
                     >
                         <Ruler className="h-4 w-4 mr-2" />
                         Agendar Visita

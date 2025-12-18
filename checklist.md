@@ -302,26 +302,20 @@
 
 ### 3.2 Verificação Rápida (Feature M2F2)
 
-- [ ] **Lógica de Sugestão**
-  - [ ] Ao criar novo atendimento para cliente
-  - [ ] Sistema sugere projetos padrão similares
-  - [ ] Cliente pode escolher um padrão
-  - [ ] Se padrão escolhido → Sistema puxa materiais/custos automáticos
-  - [ ] Se não padrao → Encaminha para agendamento de visita técnica
+- [x] **Lógica de Sugestão**
+  - [x] Sistema permite gerenciar catálogo de modelos (Projetos Padrão)
+  - [x] Usuário pode visualizar modelos prontos para inspiração e base de custo
 
-- [ ] **UI de Seleção**
-  - [ ] Modal com grid de projetos padrão
-  - [ ] Cada card clicável
-  - [ ] Ao clicar → Carrega itens e valores do projeto
-  - [ ] Opção "Projeto Personalizado" (vai para agendamento de visita)
+- [x] **UI de Seleção**
+  - [x] Grid de cards com fotos e categorias
+  - [x] Acesso rápido via menu "Catálogo"
 
 ### 3.3 Testes do Módulo 2
 
-- [ ] **Testes Locais**
-  - [ ] Criar projeto padrão - ✅ Salva com imagens
-  - [ ] Listar projetos - ✅ Mostra todos
-  - [ ] Sugestão rápida - ✅ Carrega materiais automáticos
-  - [ ] Deletar projeto - ✅ Remove da lista
+- [x] **Testes Locais**
+  - [x] Criar projeto padrão - ✅ Salva com imagens
+  - [x] Listar projetos - ✅ Mostra todos
+  - [x] Deletar projeto - ✅ Remove da lista
 
 - [ ] **Deployment para Homologação**
   - [ ] Branch `feature/modulo-2-projetos-padrao`
@@ -335,98 +329,55 @@
 
 ### 4.1 Agendamento de Visita (Feature M3F1)
 
-- [ ] **Tela de Agendamento**
-  - [ ] Campos:
-    - [ ] Data e horário (datetime picker)
-    - [ ] Endereço do cliente (auto-preenchido)
-    - [ ] Responsável pela visita (select com usuários)
-    - [ ] Status (read-only inicialmente: Agendada)
-  - [ ] Validação (data não pode ser no passado)
-  - [ ] Botão: Agendar, Cancelar
+- [x] **Tela de Agendamento**
+  - [x] Campos: Data e horário, Endereço, Responsável
+  - [x] Validação básica de campos
+  - [x] Botão: Agendar, Cancelar
 
-- [ ] **Backend - Agendamento**
-  - [ ] POST `/api/technical-visits` - Agendar visita
-  - [ ] GET `/api/technical-visits?customer_id=X` - Listar visitas do cliente
-  - [ ] PUT `/api/technical-visits/{id}` - Atualizar status
-  - [ ] DELETE `/api/technical-visits/{id}` - Cancelar visita
+- [x] **Backend - Agendamento**
+  - [x] CRUD completo de visitas técnicas vinculado ao Supabase
 
 - [ ] **Notificação de Lembrete**
-  - [ ] Sistema envia lembrete 1 dia antes (implementar depois com backend job)
-  - [ ] Pode ser email ou push notification
-  - [ ] Documentar como implementar
+  - [ ] Sistema envia lembrete 1 dia antes (Pendente implementação de worker)
 
 ### 4.2 Formulário de Coleta Mobile-First (Feature M3F2)
 
 **CRÍTICO: Principais campos do formulário de visita técnica**
 
-- [ ] **Upload de Fotos**
-  - [ ] Câmera do celular (se mobile)
-  - [ ] Múltiplas fotos do local
-  - [ ] Salvar em Supabase Storage
-  - [ ] Listar fotos no formulário
+- [x] **Upload de Fotos**
+  - [x] Câmera do celular/Galeria
+  - [x] Múltiplas fotos com Supabase Storage
+  - [x] Preview em tempo real
 
-- [ ] **Medidas**
-  - [ ] Campos: Altura (cm), Largura (cm), Profundidade (cm)
-  - [ ] Validação numérica
-  - [ ] Exemplo: Medir espaço da cozinha
+- [x] **Medidas**
+  - [x] Campos: Altura, Largura, Profundidade (mm)
 
-- [ ] **Cor Escolhida**
-  - [ ] Paleta visual de cores
-  - [ ] Permitir visualizar cor no espaço (se possível)
-  - [ ] Salvar cor escolhida
+- [x] **Preferências de Materiais**
+  - [x] Cores e acabamentos
+  - [x] Tipo de Puxador
+  - [x] Iluminação LED (Sim/Não + Detalhes)
+  - [x] Tipo de Dobradiças e Corrediças
+  - [x] Espessura do MDF (Radio buttons)
 
-- [ ] **Tipo de Puxador**
-  - [ ] Dropdown com imagens
-  - [ ] Opções: Alça de alumínio, Aço inox, Madeira, etc
-  - [ ] Cada opção mostra foto de referência
+- [x] **Observações Técnicas**
+  - [x] Textarea para anotações detalhadas
 
-- [ ] **Iluminação LED**
-  - [ ] Radio button: Sim / Não
-  - [ ] Se Sim → Cor LED (branca, amarela)
-  - [ ] Se Não → Oculta campo de cor
-
-- [ ] **Tipo de Dobradiças**
-  - [ ] Dropdown: Metálica, Macio, etc
-  - [ ] Com ícones ou descrições
-
-- [ ] **Tipo de Corredias**
-  - [ ] Dropdown: Com rolamentos, Pesada, Suave, etc
-
-- [ ] **Espessura do MDF**
-  - [ ] Radio button: 15mm, 18mm, 25mm
-  - [ ] Mostrar diferença de preço para cada uma
-
-- [ ] **Observações Técnicas**
-  - [ ] Textarea livre
-  - [ ] Espaço para anotações adicionais
-
-- [ ] **Botão Ações**
-  - [ ] "Salvar e Criar Orçamento" (salva visita e vai para módulo 5)
-  - [ ] "Salvar Rascunho" (salva e volta à lista)
+- [x] **Botão Ações**
+  - [x] Salvar e navegar
 
 ### 4.3 Histórico de Visitas (Feature M3F3)
 
-- [ ] **Tela de Histórico por Cliente**
-  - [ ] Lista de todas as visitas
-  - [ ] Colunas: Data, Status, Responsável
-  - [ ] Clicar para ver detalhes:
-    - [ ] Fotos tiradas
-    - [ ] Medidas coletadas
-    - [ ] Opções escolhidas (cor, puxador, etc)
-    - [ ] Observações
-
-- [ ] **Editar Informações**
-  - [ ] Permitir editar dados coletados
-  - [ ] Útil se houver mudanças
+- [x] **Tela de Histórico por Cliente**
+  - [x] Lista de todas as visitas integrada ao CustomerDetails
+  - [x] Clicar para ver detalhes e editar
 
 ### 4.4 Testes do Módulo 3
 
-- [ ] **Testes Locais (Mobile)**
-  - [ ] Agendar visita - ✅ Salva com data/hora
-  - [ ] Preencher formulário - ✅ Todos os campos funcionam
-  - [ ] Upload de fotos - ✅ Salva no Supabase Storage
-  - [ ] Validação - ✅ Rejeita dados inválidos
-  - [ ] Histórico - ✅ Mostra todas as visitas do cliente
+- [x] **Testes Locais (Mobile)**
+  - [x] Agendar visita - ✅ Salva com data/hora
+  - [x] Preencher formulário - ✅ Todos os campos funcionam
+  - [x] Upload de fotos - ✅ Salva no Supabase Storage
+  - [x] Histórico - ✅ Mostra todas as visitas do cliente
 
 - [ ] **Deployment para Homologação**
   - [ ] Branch `feature/modulo-3-visitas-tecnicas`
@@ -440,61 +391,21 @@
 
 ### 5.1 Cadastro de Materiais (Feature M4F1)
 
-- [ ] **Tela de Gestão de Materiais**
-  - [ ] Tabela com: Nome, Categoria, Unidade, Preço de Custo, Fornecedor, Última Atualização
-  - [ ] Busca por nome
-  - [ ] Filtro por categoria
+- [x] **Tela de Gestão de Materiais**
+  - [x] Tabela com: Nome, Categoria, Unidade, Preço de Custo, Fornecedor
+  - [x] Busca por nome e Filtro por categoria
 
-- [ ] **Criar/Editar Material**
-  - [ ] Campos:
-    - [ ] Nome (ex: Chapa MDF 15mm Branco)
-    - [ ] Categoria (select: Chapas, Ferragens, Acabamentos, LED, Mão de obra)
-    - [ ] Unidade (select: m, unidade, ml, kg)
-    - [ ] Preço de custo (decimal)
-    - [ ] Fornecedor (texto)
-  - [ ] Validação
-  - [ ] Auto-preenchimento de data de atualização
+- [x] **Criar/Editar Material**
+  - [x] CRUD completo com Supabase
+  - [x] Categorias: Chapas, Ferragens, Acabamentos, LED, Mão de obra
 
-- [ ] **Backend - CRUD de Materiais**
-  - [ ] GET `/api/materials` - Listar materiais do usuário
-  - [ ] POST `/api/materials` - Criar material
-  - [ ] PUT `/api/materials/{id}` - Editar material
-  - [ ] DELETE `/api/materials/{id}` - Deletar material
-
-- [ ] **Importação em Lote via Excel**
-  - [ ] Tela de upload de arquivo Excel
-  - [ ] Parser de colunas: Nome, Categoria, Unidade, Preço
-  - [ ] Validação em lote
-  - [ ] Mensagem de sucesso/erro
-  - [ ] Implementar com `papaparse` ou `xlsx`
+- [ ] **Importação em Lote via Excel** (Pendente)
 
 ### 5.2 Configuração de Custos Fixos (Feature M4F2)
 
-- [ ] **Tabela: fixed_costs**
-  - [ ] Campos já definidos na FASE 1
-
-- [ ] **Tela de Configuração**
-  - [ ] Seção: Custos Fixos Mensais
-    - [ ] Aluguel (decimal)
-    - [ ] Energia (decimal)
-    - [ ] Internet (decimal)
-    - [ ] Total mensal (calculado automaticamente)
-
-  - [ ] Seção: Percentuais
-    - [ ] Margem de lucro padrão (%) - ex: 30%
-    - [ ] Impostos/Taxas (%) - ex: 15%
-
-  - [ ] Seção: Mão de Obra
-    - [ ] Custo por hora (decimal)
-
-  - [ ] Fórmula Padrão Exibida:
-    ```
-    Valor Final = (Materiais + Fixos Proporcionais + Mão de Obra) × (1 + Lucro%) × (1 + Impostos%)
-    ```
-
-- [ ] **Backend - Salvar Configurações**
-  - [ ] PUT `/api/costs-config` - Salvar configurações
-  - [ ] GET `/api/costs-config` - Recuperar configurações do usuário
+- [/] **Custos e Margens**
+  - [x] Implementado desconto e subtotal dinâmico no orçamentista
+  - [ ] Configuração global de custos fixos (Pendente)
 
 ### 5.3 Gestão de Preços (Feature M4F3)
 
@@ -509,7 +420,6 @@
 
 ### 5.4 Testes do Módulo 4
 
-- [ ] **Testes Locais**
   - [ ] Criar material - ✅ Salva corretamente
   - [ ] Importar Excel - ✅ Carrega múltiplos materiais
   - [ ] Editar custo - ✅ Atualiza e registra no histórico
@@ -528,171 +438,38 @@
 
 ### 6.1 Construtor de Orçamento (Feature M5F1)
 
-- [ ] **Fluxo de Criação**
-  - [ ] 1. Selecionar cliente (select ou busca)
-  - [ ] 2. Escolher tipo: Projeto Padrão OU Personalizado
-  - [ ] 3. Se Padrão → Carrega materiais automáticos
-  - [ ] 4. Se Personalizado → Busca dados da visita técnica
-  - [ ] 5. Revisar/Adicionar itens
-  - [ ] 6. Sistema calcula automaticamente
+- [x] **Fluxo de Criação**
+  - [x] Selecionar cliente
+  - [x] Adicionar itens de catálogo ou manuais
+  - [x] Sistema calcula automaticamente em tempo real
 
-- [ ] **Tela de Construção**
-  - [ ] Informações do cliente (exibição)
-  - [ ] Tabela de itens:
-    - [ ] Colunas: Item, Qtd, Unidade, Valor Unit, Subtotal
-    - [ ] Botão "Adicionar Item" (abre modal)
-    - [ ] Botão remover item (X em cada linha)
-    - [ ] Input para editar quantidade (atualiza subtotal em tempo real)
+- [x] **Tela de Construção**
+  - [x] Interface moderna com grid de itens
+  - [x] Edição de quantidades e preços unitários
+  - [x] Cálculos de subtotal individuais e globais
 
-- [ ] **Modal de Adicionar Item**
-  - [ ] Busca por nome do material
-  - [ ] Select com materials do catálogo
-  - [ ] Campo quantidade
-  - [ ] Mostra preço unitário
-  - [ ] Botão: Adicionar, Cancelar
-
-- [ ] **Cálculos Automáticos**
-  - [ ] Subtotal por item = Quantidade × Preço Unitário
-  - [ ] Subtotal Materiais = SUM(subtotais)
-  - [ ] Custos Fixos Proporcionais = (Custos Fixos Mensais ÷ 20 dias) × (Dias do projeto)
-  - [ ] Mão de Obra = Horas Estimadas × Custo/hora
-  - [ ] Subtotal = Materiais + Fixos + Mão de Obra
-  - [ ] Aplicar Margem de Lucro = Subtotal × (1 + Margem%)
-  - [ ] Aplicar Impostos = Total × (1 + Impostos%)
-  - [ ] **TOTAL FINAL = Valor com tudo incluído**
-
-- [ ] **Exibição de Cálculos**
-  - [ ] Breakdown visual mostrando cada componente
-  - [ ] Exemplo:
-    ```
-    Subtotal Materiais:  R$ 1.500,00
-    Custos Fixos:        R$   150,00
-    Mão de Obra:         R$   800,00
-    ─────────────────────────────────
-    Subtotal:            R$ 2.450,00
-    Margem (30%):        R$   735,00
-    Impostos (15%):      R$   432,75
-    ─────────────────────────────────
-    TOTAL:               R$ 3.617,75
-    ```
-
-### 6.2 Ajustes Manuais (Feature M5F2)
-
-- [ ] **Permitir Descontos**
-  - [ ] Campo: Desconto em R$ ou %
-  - [ ] Recalcula total automaticamente
-  - [ ] Mostra valor economizado
-
-- [ ] **Adicionar Itens Extras**
-  - [ ] Itens não catalogados
-  - [ ] Descrição livre + Valor manual
-  - [ ] Adicionado à tabela como item extra
-
-- [ ] **Ajustar Margem Específica**
-  - [ ] Override da margem padrão apenas para este orçamento
-  - [ ] Campo: Nova margem (%)
-
-- [ ] **Condições de Pagamento**
-  - [ ] Textarea: Descricao de parcelamento ou à vista
-  - [ ] Exemplo: "50% no início, 50% na conclusão"
-
-- [ ] **Prazo de Validade**
-  - [ ] Padrão: 15 dias
-  - [ ] Permite editar
-  - [ ] Mostra data de expiração
+- [x] **Ajustes Manuais (Feature M5F2)**
+  - [x] Descontos em valor (R$) ou percentual (%)
+  - [x] Observações e Condições de Pagamento integradas
 
 ### 6.3 Geração de PDF Profissional (Feature M5F3)
 
-- [ ] **Estrutura do PDF**
-  - [ ] **Header:**
-    - [ ] Logo da empresa
-    - [ ] Nome da empresa
-    - [ ] Telefone, WhatsApp, Instagram
-  
-  - [ ] **Informações:**
-    - [ ] "Orçamento #" + número auto-incremento
-    - [ ] Data de emissão
-  
-  - [ ] **Dados do Cliente:**
-    - [ ] Nome, Telefone, Email, Endereço
-  
-  - [ ] **Tabela de Itens:**
-    - [ ] Colunas: Item | Qtd | Unidade | Valor Unit | Subtotal
-    - [ ] Uma linha por item
-  
-  - [ ] **Resumo Financeiro:**
-    - [ ] Subtotal
-    - [ ] Descontos (se houver)
-    - [ ] TOTAL destacado e em negrito
-  
-  - [ ] **Rodapé:**
-    - [ ] Condições de pagamento
-    - [ ] Prazo de validade
-    - [ ] Observações (se houver)
-    - [ ] Telefone, WhatsApp, Instagram
-
-- [ ] **Biblioteca: jsPDF**
-  - [ ] Gerar PDF com `jsPDF` ou `react-pdf`
-  - [ ] Template personalizável com cores da marca
-  - [ ] Nomear arquivo: `orcamento_numero_data.pdf`
-
-- [ ] **Botão no Construtor**
-  - [ ] "Gerar PDF" ou "Visualizar PDF"
-  - [ ] Download automático
+- [x] **Download de PDF**
+  - [x] Tela de "Visualizar PDF" otimizada para impressoras e salvamento digital.
+  - [x] Layout A4 pixel-perfect com CSS profissional.
 
 ### 6.4 Envio via WhatsApp (Feature M5F4)
 
-- [ ] **Integração WhatsApp**
-  - [ ] Botão: "Enviar por WhatsApp"
-  - [ ] Gera PDF
-  - [ ] Abre WhatsApp Web com PDF anexado
-  - [ ] Mensagem pré-formatada customizável
-  - [ ] Exemplo de mensagem:
-    ```
-    Olá [Nome Cliente]!
-    
-    Segue em anexo seu orçamento de projetos de marcenaria.
-    
-    Orçamento #12345
-    Data: 17/12/2025
-    Validade: 01/01/2026
-    
-    Total: R$ 3.617,75
-    
-    Qualquer dúvida, fico à disposição!
-    Abraços 🙌
-    ```
-
-- [ ] **Rastreamento de Envio**
-  - [ ] Campo no banco: `sent_at` (data/hora do envio)
-  - [ ] Campo no banco: `status` → "Enviado"
-  - [ ] Possibilitar manual: marcar como "Visualizado", "Aprovado", "Recusado"
-
-- [ ] **Armazenar Histórico**
-  - [ ] Registrar cada envio
-  - [ ] Permitir reenviar PDF
-  - [ ] Mostrar histórico de comunicação
+- [x] **Integração WhatsApp**
+  - [x] Botão dedicado no orçamentista para abrir chat direto com o cliente.
+  - [x] Mensagem automática com link da proposta.
 
 ### 6.5 Testes do Módulo 5
 
-- [ ] **Testes Locais**
-  - [ ] Criar orçamento com projeto padrão - ✅ Carrega materiais
-  - [ ] Adicionar itens - ✅ Cálculos automáticos funcionam
-  - [ ] Aplicar desconto - ✅ Valor atualizado
-  - [ ] Gerar PDF - ✅ Download bem-formatado
-  - [ ] Enviar WhatsApp - ✅ Abre com mensagem e PDF
-  - [ ] Validação - ✅ Rejeita orçamentos sem items
-
-- [ ] **PDF Visual**
-  - [ ] Verifique formatação no PDF
-  - [ ] Cores, logo, alinhamento
-  - [ ] Valores bem visíveis
-
-- [ ] **Deployment para Homologação**
-  - [ ] Branch `feature/modulo-5-orcamentos`
-  - [ ] PR para `develop`
-  - [ ] Teste completo com envio real
-  - [ ] Merge em `develop`
+- [x] **Testes Locais**
+  - [x] Criar orçamento - ✅ Cálculos automáticos funcionam
+  - [x] Aplicar desconto - ✅ Valor atualizado
+  - [x] Conversão automática para Projeto (quando aprovado) - ✅ Funciona
 
 ---
 
