@@ -15,7 +15,8 @@ import {
     Percent,
     Banknote,
     Printer,
-    Phone
+    Phone,
+    FileSignature
 } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
 import { Link } from 'react-router-dom';
@@ -163,9 +164,14 @@ export default function QuoteForm() {
             const { error: itemsErr } = await supabase.from('quote_items').insert(itemsPayload);
             if (itemsErr) throw itemsErr;
 
-            // Automation: If approved, create a project
+            // Automation: If approved, create a project and a service order
             if (status === 'Aprovado') {
-                const { data: existingProject } = await supabase.from('projects').select('id').eq('customer_id', selectedCustomer).eq('title', `Projeto do Orçamento #${quoteId.slice(0, 5)}`).single();
+                // Check if project exists
+                const { data: existingProject } = await supabase.from('projects')
+                    .select('id')
+                    .eq('customer_id', selectedCustomer)
+                    .eq('title', `Projeto do Orçamento #${quoteId.slice(0, 5)}`)
+                    .single();
 
                 if (!existingProject) {
                     await supabase.from('projects').insert([{
@@ -173,6 +179,21 @@ export default function QuoteForm() {
                         title: `Projeto do Orçamento #${quoteId.slice(0, 5)}`,
                         status: 'in_progress',
                         budget_estimated: finalTotal
+                    }]);
+                }
+
+                // Check if service order exists
+                const { data: existingOS } = await supabase.from('service_orders')
+                    .select('id')
+                    .eq('quote_id', quoteId)
+                    .single();
+
+                if (!existingOS) {
+                    await supabase.from('service_orders').insert([{
+                        user_id: user.id,
+                        quote_id: quoteId,
+                        status: 'Aguardando material',
+                        technical_notes: notes
                     }]);
                 }
             }
@@ -440,7 +461,15 @@ export default function QuoteForm() {
                                             className="py-3 bg-gray-800 text-white text-[10px] font-black uppercase rounded-2xl hover:bg-gray-700 transition-all flex items-center justify-center border border-gray-700 active:scale-95"
                                         >
                                             <Printer className="h-4 w-4 mr-2" />
-                                            Ver PDF
+                                            PDF
+                                        </Link>
+                                        <Link
+                                            to={`/finance/quotes/contract/${id}`}
+                                            target="_blank"
+                                            className="py-3 bg-indigo-600 text-white text-[10px] font-black uppercase rounded-2xl hover:bg-indigo-500 transition-all flex items-center justify-center active:scale-95"
+                                        >
+                                            <FileSignature className="h-4 w-4 mr-2" />
+                                            Contrato
                                         </Link>
                                         <button
                                             type="button"
@@ -450,7 +479,7 @@ export default function QuoteForm() {
                                                 const msg = encodeURIComponent(`Olá ${customer?.name}! Segue o link da sua proposta: ${window.location.origin}/finance/quotes/print/${id}`);
                                                 window.open(`https://wa.me/55${phone}?text=${msg}`, '_blank');
                                             }}
-                                            className="py-3 bg-green-600 text-white text-[10px] font-black uppercase rounded-2xl hover:bg-green-500 transition-all flex items-center justify-center active:scale-95"
+                                            className="col-span-2 py-3 bg-green-600 text-white text-[10px] font-black uppercase rounded-2xl hover:bg-green-500 transition-all flex items-center justify-center active:scale-95"
                                         >
                                             <Phone className="h-4 w-4 mr-2" />
                                             WhatsApp

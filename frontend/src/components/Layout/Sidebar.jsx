@@ -10,7 +10,9 @@ import {
     Box,
     X,
     FolderKanban,
-    BookOpen
+    BookOpen,
+    ClipboardList,
+    PieChart
 } from 'lucide-react';
 import clsx from 'clsx';
 
@@ -22,7 +24,9 @@ const navigation = [
     { name: 'Visitas', href: '/visits', icon: Calendar },
     { name: 'Materiais', href: '/finance/materials', icon: Box },
     { name: 'Orçamentos', href: '/finance/quotes', icon: FileText },
+    { name: 'Ordens de Serviço', href: '/finance/os', icon: ClipboardList },
     { name: 'Financeiro', href: '/finance', icon: TrendingUp },
+    { name: 'Relatórios', href: '/finance/reports', icon: PieChart },
 ];
 
 export default function Sidebar({ mobile, onClose }) {

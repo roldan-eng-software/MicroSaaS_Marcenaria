@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { supabase } from '../../lib/supabase';
-import { Plus, Search, FileText, ChevronRight, Filter, Printer, CheckCircle2, Clock, XCircle, Eye } from 'lucide-react';
+import { Plus, Search, FileText, ChevronRight, Filter, Printer, CheckCircle2, Clock, XCircle, Eye, FileSignature } from 'lucide-react';
 import clsx from 'clsx';
 
 export default function QuoteList() {
@@ -157,6 +157,14 @@ export default function QuoteList() {
                                                     title="Imprimir / PDF"
                                                 >
                                                     <Printer className="h-5 w-5" />
+                                                </Link>
+                                                <Link
+                                                    to={`/finance/quotes/contract/${quote.id}`}
+                                                    target="_blank"
+                                                    className="p-2 text-gray-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition-all"
+                                                    title="Gerar Contrato"
+                                                >
+                                                    <FileSignature className="h-5 w-5" />
                                                 </Link>
                                                 <Link
                                                     to={`/finance/quotes/edit/${quote.id}`}

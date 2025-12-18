@@ -17,28 +17,17 @@ import MaterialList from './pages/Finance/MaterialList';
 import QuoteList from './pages/Finance/QuoteList';
 import QuoteForm from './pages/Finance/QuoteForm';
 import QuotePrint from './pages/Finance/QuotePrint';
+import OSList from './pages/Finance/OSList';
+import OSDetails from './pages/Finance/OSDetails';
+import ContractPrint from './pages/Finance/ContractPrint';
+import Dashboard from './pages/Dashboard';
+import Reports from './pages/Reports/Reports';
 import Profile from './pages/Profile/Profile';
 
 const PrivateRoute = ({ children }) => {
     const { user } = useAuth();
     return user ? children : <Navigate to="/login" />;
 };
-
-function Dashboard() {
-    const { signOut, user } = useAuth();
-    return (
-        <div className="p-4">
-            <h1 className="text-2xl font-bold mb-4">Dashboard</h1>
-            <p className="mb-4">Bem-vindo, {user.email}</p>
-            <button
-                onClick={signOut}
-                className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700"
-            >
-                Sair
-            </button>
-        </div>
-    );
-}
 
 function App() {
     return (
@@ -63,6 +52,10 @@ function App() {
                                     <Route path="/finance/quotes/new" element={<QuoteForm />} />
                                     <Route path="/finance/quotes/edit/:id" element={<QuoteForm />} />
                                     <Route path="/finance/quotes/print/:id" element={<QuotePrint />} />
+                                    <Route path="/finance/quotes/contract/:id" element={<ContractPrint />} />
+                                    <Route path="/finance/os" element={<OSList />} />
+                                    <Route path="/finance/os/:id" element={<OSDetails />} />
+                                    <Route path="/finance/reports" element={<Reports />} />
                                     <Route path="/customers" element={<CustomerList />} />
                                     <Route path="/customers/new" element={<CustomerForm />} />
                                     <Route path="/customers/edit/:id" element={<CustomerForm />} />
