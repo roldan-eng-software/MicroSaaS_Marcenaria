@@ -13,7 +13,9 @@ export default function CustomerForm() {
         email: '',
         phone: '',
         document: '',
-        address: ''
+        address: '',
+        origin: 'WhatsApp',
+        status: 'Lead'
     });
 
     const handleChange = (e) => {
@@ -130,6 +132,42 @@ export default function CustomerForm() {
                             onChange={handleChange}
                             className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2 border"
                         />
+                    </div>
+
+                    <div>
+                        <label htmlFor="origin" className="block text-sm font-medium text-gray-700">
+                            Origem do Contato
+                        </label>
+                        <select
+                            name="origin"
+                            id="origin"
+                            value={formData.origin}
+                            onChange={handleChange}
+                            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2 border"
+                        >
+                            <option value="WhatsApp">WhatsApp</option>
+                            <option value="Indicação">Indicação</option>
+                            <option value="Instagram">Instagram</option>
+                            <option value="Google">Google</option>
+                            <option value="Outro">Outro</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label htmlFor="status" className="block text-sm font-medium text-gray-700">
+                            Status
+                        </label>
+                        <select
+                            name="status"
+                            id="status"
+                            value={formData.status}
+                            onChange={handleChange}
+                            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2 border"
+                        >
+                            <option value="Lead">Lead</option>
+                            <option value="Em negociação">Em negociação</option>
+                            <option value="Cliente ativo">Cliente ativo</option>
+                        </select>
                     </div>
                 </div>
 

@@ -1,5 +1,5 @@
 import { Link, useLocation } from 'react-router-dom';
-import { LayoutDashboard, Users, FolderKanban, Wallet } from 'lucide-react';
+import { LayoutDashboard, Users, FolderKanban, Wallet, Settings } from 'lucide-react';
 import clsx from 'clsx';
 
 const navigation = [
@@ -7,6 +7,7 @@ const navigation = [
     { name: 'Clientes', href: '/customers', icon: Users },
     { name: 'Projetos', href: '/projects', icon: FolderKanban },
     { name: 'Financeiro', href: '/finance', icon: Wallet },
+    { name: 'Perfil', href: '/profile', icon: Settings },
 ];
 
 export default function Sidebar() {

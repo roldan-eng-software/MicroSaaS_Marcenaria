@@ -8,6 +8,7 @@ import ProjectList from './pages/Projects/ProjectList';
 import ProjectForm from './pages/Projects/ProjectForm';
 import TransactionList from './pages/Finance/TransactionList';
 import TransactionForm from './pages/Finance/TransactionForm';
+import Profile from './pages/Profile/Profile';
 
 const PrivateRoute = ({ children }) => {
     const { user } = useAuth();
@@ -47,6 +48,7 @@ function App() {
                                     <Route path="/projects/new" element={<ProjectForm />} />
                                     <Route path="/finance" element={<TransactionList />} />
                                     <Route path="/finance/new" element={<TransactionForm />} />
+                                    <Route path="/profile" element={<Profile />} />
                                 </Routes>
                             </AppLayout>
                         </PrivateRoute>

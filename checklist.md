@@ -59,18 +59,17 @@
 ### 0.3 Configuração de Variáveis de Ambiente
 
 - [x] **Backend - Variáveis Críticas**
-  - [ ] `NODE_ENV` = production (para testes usar development)
-  - [ ] `DEBUG` = False (em produção)
-  - [ ] `DATABASE_URL` = postgresql://user:password@db:5432/appname
-  - [ ] `ALLOWED_HOSTS` = localhost,yourdomain.com
-  - [ ] `SUPABASE_URL` = URL do projeto Supabase
-  - [x] `SUPABASE_KEY` = Chave anônima Supabase
+  - [x] `DEBUG` = True (em desenvolvimento)
+  - [x] `DATABASE_URL` = postgresql://postgres:securepassword@db:5432/appname
+  - [x] `ALLOWED_HOSTS` = localhost,127.0.0.1
+  - [x] `SUPABASE_URL` = URL do projeto Supabase
+  - [x] `SUPABASE_KEY` = Chave anônima Supabase (ou service_role if needed)
   - [x] Criar arquivo `.env.example` no backend com todas as variáveis
 
 - [x] **Frontend - Variáveis Críticas**
-  - [ ] `REACT_APP_API_URL` = http://yourdomain.com:8000 (desenvolvimento) ou https://yourdomain.com (produção)
-  - [ ] `REACT_APP_SUPABASE_URL` = URL do projeto Supabase
-  - [x] `REACT_APP_SUPABASE_ANON_KEY` = Chave anônima Supabase
+  - [x] `VITE_API_URL` = http://localhost:8000
+  - [x] `VITE_SUPABASE_URL` = URL do projeto Supabase
+  - [x] `VITE_SUPABASE_ANON_KEY` = Chave anônima Supabase
   - [x] Criar arquivo `.env.example` no frontend com todas as variáveis
 
 ### 0.4 Conta Supabase - Setup Gratuito
@@ -81,24 +80,23 @@
   - [x] Copiar `SUPABASE_URL` e `SUPABASE_ANON_KEY`
   - [x] Habilitar Auth (Email/Password)
   - [x] Habilitar RLS (Row Level Security) nas tabelas
-  - [ ] Configurar Storage para fotos/PDFs
+  - [/] Configurar Storage para fotos/PDFs (Pendente implementação no código)
 
 ### 0.5 Design e Prototipagem
 
-- [ ] **Figma - Mockups das Telas Principais**
-  - [ ] Dashboard Principal
-  - [ ] Tela de Clientes (CRUD)
-  - [ ] Tela de Visita Técnica (formulário mobile-first)
-  - [ ] Tela de Geração de Orçamento
-  - [ ] Tela de Visualização de Orçamento/PDF
-  - [ ] Paleta de cores definida (usar identidade visual da marca)
-  - [ ] Componentes reutilizáveis definidos
+- [/] **Figma - Mockups das Telas Principais**
+  - [x] Dashboard Principal (Layout base pronto)
+  - [x] Tela de Clientes (CRUD pronto)
+  - [/] Tela de Visita Técnica (próximo módulo)
+  - [/] Tela de Geração de Orçamento
+  - [x] Paleta de cores definida (Tailwind padrão + customização)
+  - [x] Componentes reutilizáveis definidos (Layout, Sidebar)
 
-- [ ] **Documentação de Design**
-  - [ ] Cores definidas e documentadas
-  - [ ] Tipografia (fonte base, tamanhos, pesos)
-  - [ ] Ícones selecionados (lucide-react)
-  - [ ] Componentes padrão documentados
+- [/] **Documentação de Design**
+  - [/] Cores definidas e documentadas
+  - [x] Tipografia (Inter)
+  - [x] Ícones selecionados (lucide-react)
+  - [/] Componentes padrão documentados
 
 ---
 
@@ -107,142 +105,42 @@
 ### 1.1 Schema do Banco de Dados
 - [x] **Criar migrações/scripts SQL para tabelas core (`users`, `customers`, etc)**
 
-- [ ] **Tabela: users**
+- [x] **Tabela: users (Profiles)**
   ```sql
   - id (UUID, PK)
-  - email (VARCHAR, UNIQUE)
-  - company_name (VARCHAR)
-  - logo_url (TEXT)
-  - phone (VARCHAR)
+  - email (auth.users)
+  - company_name (TEXT)
+  - logo_url (avatar_url)
+  - phone (TEXT)
   - address (TEXT)
   - created_at (TIMESTAMP)
   - updated_at (TIMESTAMP)
   ```
 
-- [ ] **Tabela: customers**
+- [x] **Tabela: customers**
   ```sql
   - id (UUID, PK)
-  - user_id (UUID, FK → users)
-  - name (VARCHAR)
-  - phone (VARCHAR)
-  - email (VARCHAR)
+  - user_id (UUID, FK → profiles)
+  - name (TEXT)
+  - phone (TEXT)
+  - email (TEXT)
   - address (TEXT)
-  - origin (VARCHAR) - WhatsApp, indicação, Instagram, etc
-  - status (VARCHAR) - Lead, Em negociação, Cliente ativo
+  - origin (TEXT) - WhatsApp, indicação, Instagram, etc
+  - status (TEXT) - Lead, Em negociação, Cliente ativo
   - created_at (TIMESTAMP)
   - updated_at (TIMESTAMP)
   ```
 
-- [ ] **Tabela: standard_projects**
-  ```sql
-  - id (UUID, PK)
-  - user_id (UUID, FK → users)
-  - name (VARCHAR) - ex: Cozinha Completa 3m
-  - category (VARCHAR) - cozinha, quarto, closet, banheiro
-  - description (TEXT)
-  - base_price (DECIMAL)
-  - execution_time (VARCHAR) - ex: 15 dias
-  - images (JSONB) - array de URLs de imagens
-  - created_at (TIMESTAMP)
-  ```
+- [x] **Tabela: standard_projects**
+- [x] **Tabela: technical_visits**
+- [x] **Tabela: materials**
+- [x] **Tabela: fixed_costs**
+- [x] **Tabela: projects**
 
-- [ ] **Tabela: technical_visits**
-  ```sql
-  - id (UUID, PK)
-  - customer_id (UUID, FK → customers)
-  - scheduled_date (TIMESTAMP)
-  - status (VARCHAR) - Agendada, Realizada, Cancelada
-  - measurements (JSONB) - {altura, largura, profundidade}
-  - photos (JSONB) - array de URLs de fotos do local
-  - color (VARCHAR) - cor escolhida
-  - hardware_type (VARCHAR) - tipo de puxador
-  - led (BOOLEAN)
-  - led_color (VARCHAR) - branca, amarela
-  - hinges_type (VARCHAR) - dobradiças
-  - slides_type (VARCHAR) - corredias
-  - mdf_thickness (VARCHAR) - 15mm, 18mm, 25mm
-  - notes (TEXT) - observações técnicas
-  - created_at (TIMESTAMP)
-  ```
-
-- [ ] **Tabela: materials**
-  ```sql
-  - id (UUID, PK)
-  - user_id (UUID, FK → users)
-  - name (VARCHAR) - ex: Chapa MDF 15mm Branco
-  - category (VARCHAR) - chapas, ferragens, acabamentos, LED, mão de obra
-  - unit (VARCHAR) - m, unidade, ml, kg
-  - cost_price (DECIMAL)
-  - supplier (VARCHAR)
-  - updated_at (TIMESTAMP)
-  ```
-
-- [ ] **Tabela: fixed_costs**
-  ```sql
-  - id (UUID, PK)
-  - user_id (UUID, FK → users)
-  - monthly_rent (DECIMAL)
-  - monthly_energy (DECIMAL)
-  - monthly_internet (DECIMAL)
-  - profit_margin_percent (DECIMAL) - ex: 30
-  - taxes_percent (DECIMAL) - ex: 15
-  - labor_cost_per_hour (DECIMAL)
-  - created_at (TIMESTAMP)
-  - updated_at (TIMESTAMP)
-  ```
-
-- [ ] **Tabela: quotes**
-  ```sql
-  - id (UUID, PK)
-  - user_id (UUID, FK → users)
-  - customer_id (UUID, FK → customers)
-  - quote_number (VARCHAR, UNIQUE) - auto-increment
-  - status (VARCHAR) - Rascunho, Enviado, Visualizado, Aprovado, Recusado
-  - total (DECIMAL)
-  - discount (DECIMAL)
-  - discount_type (VARCHAR) - R$, %
-  - valid_until (TIMESTAMP)
-  - payment_conditions (TEXT)
-  - notes (TEXT)
-  - sent_at (TIMESTAMP)
-  - approved_at (TIMESTAMP)
-  - created_at (TIMESTAMP)
-  - updated_at (TIMESTAMP)
-  ```
-
-- [ ] **Tabela: quote_items**
-  ```sql
-  - id (UUID, PK)
-  - quote_id (UUID, FK → quotes)
-  - material_id (UUID, FK → materials)
-  - quantity (DECIMAL)
-  - unit_price (DECIMAL)
-  - subtotal (DECIMAL)
-  ```
-
-- [ ] **Tabela: service_orders**
-  ```sql
-  - id (UUID, PK)
-  - quote_id (UUID, FK → quotes)
-  - os_number (VARCHAR, UNIQUE) - auto-increment
-  - status (VARCHAR) - Aguardando material, Em produção, Pronto, Instalado
-  - start_date (TIMESTAMP)
-  - end_date (TIMESTAMP)
-  - responsible (VARCHAR) - responsável pela execução
-  - technical_notes (TEXT)
-  - created_at (TIMESTAMP)
-  - updated_at (TIMESTAMP)
-  ```
-
-- [ ] **Tabela: contracts**
-  ```sql
-  - id (UUID, PK)
-  - quote_id (UUID, FK → quotes)
-  - contract_pdf_url (TEXT)
-  - signed_pdf_url (TEXT)
-  - signed_at (TIMESTAMP)
-  - created_at (TIMESTAMP)
-  ```
+- [x] **Tabela: quotes**
+- [x] **Tabela: quote_items**
+- [x] **Tabela: service_orders**
+- [x] **Tabela: contracts**
 
 ### 1.2 RLS (Row Level Security) - Configuração
 
@@ -313,8 +211,8 @@
     - [x] Telefone/WhatsApp (máscarado: (XX) XXXXX-XXXX)
     - [x] Email (validado)
     - [x] Endereço completo para instalação (textarea)
-    - [ ] Origem do contato (select: WhatsApp, indicação, Instagram, outro)
-    - [ ] Status (select: Lead, Em negociação, Cliente ativo)
+    - [x] Origem do contato (select: WhatsApp, indicação, Instagram, outro)
+    - [x] Status (select: Lead, Em negociação, Cliente ativo)
   - [x] Botões: Salvar, Cancelar
   - [ ] Validação com React Hook Form + Zod
   - [x] Mensagem de sucesso após salvar
