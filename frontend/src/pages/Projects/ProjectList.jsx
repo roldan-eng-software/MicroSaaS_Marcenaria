@@ -8,7 +8,7 @@ const STATUS_COLORS = {
   draft: 'bg-gray-100 text-gray-800',
   proposal: 'bg-yellow-100 text-yellow-800',
   approved: 'bg-blue-100 text-blue-800',
-  in_progress: 'bg-indigo-100 text-indigo-800',
+  in_progress: 'bg-primary-100 text-primary-800',
   completed: 'bg-green-100 text-green-800',
   cancelled: 'bg-red-100 text-red-800'
 };
@@ -81,7 +81,7 @@ export default function ProjectList() {
         <h1 className="text-2xl font-bold text-gray-900">Projetos</h1>
         <Link
           to="/projects/new"
-          className="inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+          className="inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"
         >
           <Plus className="h-4 w-4 mr-2" />
           Novo Projeto
@@ -94,7 +94,7 @@ export default function ProjectList() {
         </div>
         <input
           type="text"
-          className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+          className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-primary-500 focus:border-primary-500 sm:text-sm"
           placeholder="Buscar projetos..."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
@@ -120,22 +120,22 @@ export default function ProjectList() {
                     {STATUS_LABELS[project.status] || project.status}
                   </span>
                   <div className="flex gap-2">
-                    <button className="text-gray-400 hover:text-indigo-600">
-                        <Pencil className="h-4 w-4" />
+                    <button className="text-gray-400 hover:text-primary-600">
+                      <Pencil className="h-4 w-4" />
                     </button>
-                    <button 
-                        onClick={() => handleDelete(project.id)}
-                        className="text-gray-400 hover:text-red-600"
+                    <button
+                      onClick={() => handleDelete(project.id)}
+                      className="text-gray-400 hover:text-red-600"
                     >
-                        <Trash2 className="h-4 w-4" />
+                      <Trash2 className="h-4 w-4" />
                     </button>
                   </div>
                 </div>
-                
+
                 <h3 className="text-lg font-medium text-gray-900 truncate mb-2">
                   {project.title}
                 </h3>
-                
+
                 <div className="space-y-2">
                   <div className="flex items-center text-sm text-gray-500">
                     <User className="flex-shrink-0 mr-1.5 h-4 w-4 text-gray-400" />
@@ -148,14 +148,14 @@ export default function ProjectList() {
                     </div>
                   )}
                 </div>
-                
+
                 {project.budget_estimated && (
-                    <div className="mt-4 pt-4 border-t border-gray-100 flex justify-between items-center">
-                        <span className="text-xs text-gray-500">Orçamento</span>
-                        <span className="text-sm font-semibold text-gray-900">
-                            R$ {project.budget_estimated.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
-                        </span>
-                    </div>
+                  <div className="mt-4 pt-4 border-t border-gray-100 flex justify-between items-center">
+                    <span className="text-xs text-gray-500">Orçamento</span>
+                    <span className="text-sm font-semibold text-gray-900">
+                      R$ {project.budget_estimated.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
+                    </span>
+                  </div>
                 )}
               </div>
             </div>

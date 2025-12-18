@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { supabase } from '../../lib/supabase';
-import { Plus, Pencil, Trash2, Search } from 'lucide-react';
+import { Plus, Pencil, Trash2, Search, Eye } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 export default function CustomerList() {
@@ -57,7 +57,7 @@ export default function CustomerList() {
                 <h1 className="text-2xl font-bold text-gray-900">Clientes</h1>
                 <Link
                     to="/customers/new"
-                    className="inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                    className="inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"
                 >
                     <Plus className="h-4 w-4 mr-2" />
                     Novo Cliente
@@ -70,7 +70,7 @@ export default function CustomerList() {
                 </div>
                 <input
                     type="text"
-                    className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                    className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-primary-500 focus:border-primary-500 sm:text-sm"
                     placeholder="Buscar clientes por nome ou email..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
@@ -120,8 +120,14 @@ export default function CustomerList() {
                                     </td>
                                     <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                         <div className="flex justify-end gap-2">
-                                            {/* Placeholder for Edit Link */}
-                                            <button className="text-indigo-600 hover:text-indigo-900">
+                                            {/* Link to Details */}
+                                            <Link
+                                                to={`/customers/${customer.id}`}
+                                                className="text-primary-600 hover:text-primary-900 bg-primary-50 p-1.5 rounded-md transition-colors"
+                                            >
+                                                <Eye className="h-4 w-4" />
+                                            </Link>
+                                            <button className="text-gray-600 hover:text-gray-900 bg-gray-50 p-1.5 rounded-md">
                                                 <Pencil className="h-4 w-4" />
                                             </button>
                                             <button

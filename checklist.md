@@ -80,7 +80,7 @@
   - [x] Copiar `SUPABASE_URL` e `SUPABASE_ANON_KEY`
   - [x] Habilitar Auth (Email/Password)
   - [x] Habilitar RLS (Row Level Security) nas tabelas
-  - [/] Configurar Storage para fotos/PDFs (Pendente implementação no código)
+  - [x] Configurar Storage para fotos/PDFs (Buckets 'photos' e 'documents' criados)
 
 ### 0.5 Design e Prototipagem
 
@@ -92,11 +92,11 @@
   - [x] Paleta de cores definida (Tailwind padrão + customização)
   - [x] Componentes reutilizáveis definidos (Layout, Sidebar)
 
-- [/] **Documentação de Design**
-  - [/] Cores definidas e documentadas
+- [x] **Documentação de Design**
+  - [x] Cores definidas e documentadas (ver brain/design_system.md)
   - [x] Tipografia (Inter)
   - [x] Ícones selecionados (lucide-react)
-  - [/] Componentes padrão documentados
+  - [x] Componentes padrão documentados
 
 ---
 

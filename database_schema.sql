@@ -120,6 +120,20 @@ CREATE TABLE public.projects (
     created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL,
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
 );
+-- INTERACTIONS (Histórico de Contatos)
+CREATE TABLE public.interactions (
+    id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
+    customer_id UUID REFERENCES public.customers(id) ON DELETE CASCADE NOT NULL,
+    type TEXT NOT NULL,
+    -- Contato, Visita, Proposta, Aprovação, etc
+    channel TEXT,
+    -- WhatsApp, Telefone, Presencial, Email
+    description TEXT NOT NULL,
+    urgency TEXT DEFAULT 'Média' CHECK (urgency IN ('Alta', 'Média', 'Baixa')),
+    timeline TEXT,
+    -- Prazo/Expectativa do cliente
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
+);
 -- QUOTES (Orçamentos)
 CREATE TABLE public.quotes (
     id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
@@ -247,6 +261,15 @@ INSERT WITH CHECK (
                 AND user_id = auth.uid()
         )
     );
+-- Policies for Interactions
+CREATE POLICY "Users can manage own interactions" ON public.interactions FOR ALL USING (
+    EXISTS (
+        SELECT 1
+        FROM public.customers
+        WHERE id = interactions.customer_id
+            AND user_id = auth.uid()
+    )
+);
 -- Policies for Quotes
 CREATE POLICY "Users can manage own quotes" ON public.quotes FOR ALL USING (auth.uid() = user_id);
 -- Policies for Quote Items

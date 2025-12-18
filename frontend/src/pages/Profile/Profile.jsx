@@ -79,7 +79,7 @@ export default function Profile() {
                         {/* Full Name */}
                         <div>
                             <label className="block text-sm font-medium text-gray-700 flex items-center">
-                                <User className="h-4 w-4 mr-2 text-indigo-500" />
+                                <User className="h-4 w-4 mr-2 text-primary-500" />
                                 Nome Completo
                             </label>
                             <input
@@ -87,14 +87,14 @@ export default function Profile() {
                                 name="full_name"
                                 value={formData.full_name}
                                 onChange={handleChange}
-                                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2 border"
+                                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-sm p-2 border"
                             />
                         </div>
 
                         {/* Company Name */}
                         <div>
                             <label className="block text-sm font-medium text-gray-700 flex items-center">
-                                <Building className="h-4 w-4 mr-2 text-indigo-500" />
+                                <Building className="h-4 w-4 mr-2 text-primary-500" />
                                 Nome da Marcenaria
                             </label>
                             <input
@@ -102,14 +102,14 @@ export default function Profile() {
                                 name="company_name"
                                 value={formData.company_name}
                                 onChange={handleChange}
-                                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2 border"
+                                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-sm p-2 border"
                             />
                         </div>
 
                         {/* Phone */}
                         <div>
                             <label className="block text-sm font-medium text-gray-700 flex items-center">
-                                <Phone className="h-4 w-4 mr-2 text-indigo-500" />
+                                <Phone className="h-4 w-4 mr-2 text-primary-500" />
                                 Telefone Comercial
                             </label>
                             <input
@@ -117,7 +117,7 @@ export default function Profile() {
                                 name="phone"
                                 value={formData.phone}
                                 onChange={handleChange}
-                                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2 border"
+                                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-sm p-2 border"
                             />
                         </div>
 
@@ -137,7 +137,7 @@ export default function Profile() {
                         {/* Address */}
                         <div className="sm:col-span-2">
                             <label className="block text-sm font-medium text-gray-700 flex items-center">
-                                <MapPin className="h-4 w-4 mr-2 text-indigo-500" />
+                                <MapPin className="h-4 w-4 mr-2 text-primary-500" />
                                 Endereço da Oficina
                             </label>
                             <textarea
@@ -145,7 +145,7 @@ export default function Profile() {
                                 rows={3}
                                 value={formData.address}
                                 onChange={handleChange}
-                                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2 border"
+                                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-sm p-2 border"
                             />
                         </div>
                     </div>

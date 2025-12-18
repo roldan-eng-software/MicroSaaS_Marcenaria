@@ -16,8 +16,8 @@ export default function Sidebar() {
     return (
         <div className="flex h-full flex-col bg-gray-900 text-white w-64 shadow-xl">
             <div className="flex h-16 items-center justify-center border-b border-gray-800">
-                <h1 className="text-xl font-bold bg-gradient-to-r from-blue-400 to-indigo-500 bg-clip-text text-transparent">
-                    MicroSaaS
+                <h1 className="text-xl font-bold bg-gradient-to-r from-primary-400 to-primary-600 bg-clip-text text-transparent">
+                    Marcenaria SaaS
                 </h1>
             </div>
             <nav className="flex-1 space-y-1 px-2 py-4">

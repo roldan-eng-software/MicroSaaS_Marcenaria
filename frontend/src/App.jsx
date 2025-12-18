@@ -4,6 +4,7 @@ import Login from './pages/Login';
 import AppLayout from './components/Layout/AppLayout';
 import CustomerList from './pages/Customers/CustomerList';
 import CustomerForm from './pages/Customers/CustomerForm';
+import CustomerDetails from './pages/Customers/CustomerDetails';
 import ProjectList from './pages/Projects/ProjectList';
 import ProjectForm from './pages/Projects/ProjectForm';
 import TransactionList from './pages/Finance/TransactionList';
@@ -44,6 +45,7 @@ function App() {
                                     <Route path="/" element={<Dashboard />} />
                                     <Route path="/customers" element={<CustomerList />} />
                                     <Route path="/customers/new" element={<CustomerForm />} />
+                                    <Route path="/customers/:id" element={<CustomerDetails />} />
                                     <Route path="/projects" element={<ProjectList />} />
                                     <Route path="/projects/new" element={<ProjectForm />} />
                                     <Route path="/finance" element={<TransactionList />} />
