@@ -11,6 +11,13 @@ RUN npm install
 # Copiar o restante do código fonte
 COPY . .
 
+# Argumentos de build para o Vite (serão injetados nas variáveis env)
+ARG VITE_SUPABASE_URL
+ARG VITE_SUPABASE_ANON_KEY
+
+ENV VITE_SUPABASE_URL=$VITE_SUPABASE_URL
+ENV VITE_SUPABASE_ANON_KEY=$VITE_SUPABASE_ANON_KEY
+
 # Construir a aplicação (Vite vai usar as variáveis VITE_ passadas no build ou env)
 RUN npm run build
 
