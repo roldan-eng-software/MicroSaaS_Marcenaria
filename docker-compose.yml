@@ -1,48 +1,30 @@
 version: '3.8'
 
 services:
+  # O Backend agora atua como um Proxy ou Processador de Lógica Adicional (se necessário)
+  # Para o MVP focado em Supabase, ele pode ser opcional, mas mantemos para extensões futuras.
   backend:
     build:
-      context: .
-      dockerfile: backend/Dockerfile
-    container_name: app-backend
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: marcenaria-backend
     ports:
       - "8000:8000"
-    environment:
-      - NODE_ENV=development
-      - DEBUG=True
-      - DATABASE_URL=postgresql://postgres:securepassword@db:5432/appname
-      - ALLOWED_HOSTS=localhost,127.0.0.1
+    env_file:
+      - ./backend/.env
     restart: unless-stopped
-    depends_on:
-      - db
-    volumes:
-      - ./backend:/app
-      - ./backend/logs:/app/logs
 
+  # Frontend servido via Nginx
   frontend:
     build:
-      context: .
-      dockerfile: frontend/Dockerfile
-    container_name: app-frontend
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: marcenaria-frontend
     ports:
       - "80:80"
-    environment:
-      - REACT_APP_API_URL=http://localhost:8000
-    restart: unless-stopped
-    depends_on:
-      - backend
-
-  db:
-    image: postgres:16-alpine
-    container_name: app-db
-    environment:
-      - POSTGRES_DB=appname
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=securepassword
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
+    # Note: Vite build-time env vars precisam estar no .env do frontend ou passadas como build args.
+    # No docker-compose, elas funcionam para runtime se o app as ler (o que SPAs não fazem sem ajuda).
+    # Para o build no Dockerfile, o ideal é ter o .env presente no contexto.
     restart: unless-stopped
 
-volumes:
-  postgres_data:
+# Volumes removidos pois o banco está no Cloud (Supabase)

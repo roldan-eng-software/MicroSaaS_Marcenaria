@@ -10,7 +10,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
 # Copiar requirements e instalar dependências Python
-COPY backend/requirements.txt .
+COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Stage de execução
@@ -20,7 +20,8 @@ WORKDIR /app
 
 # Copiar dependências do stage anterior
 COPY --from=builder /usr/local/lib/python3.11/site-packages /usr/local/lib/python3.11/site-packages
-COPY backend/ .
+COPY --from=builder /usr/local/bin /usr/local/bin
+COPY . .
 
 # Variáveis de ambiente padrão
 ENV PYTHONUNBUFFERED=1 \
@@ -30,4 +31,4 @@ ENV PYTHONUNBUFFERED=1 \
 EXPOSE 8000
 
 # Comando de inicialização (FastAPI + Uvicorn)
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]

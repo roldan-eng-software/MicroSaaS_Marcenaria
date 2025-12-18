@@ -3,19 +3,25 @@ FROM node:22-alpine as builder
 
 WORKDIR /app
 
-COPY frontend/package.json frontend/package-lock.json* ./
+# Copiar apenas arquivos de dependências primeiro para aproveitar cache
+COPY package.json package-lock.json* ./
 
 RUN npm install
 
-COPY frontend/ .
+# Copiar o restante do código fonte
+COPY . .
 
+# Construir a aplicação (Vite vai usar as variáveis VITE_ passadas no build ou env)
 RUN npm run build
 
 # Servidor nginx
 FROM nginx:alpine
 
+# Copiar o build do estágio anterior
 COPY --from=builder /app/dist /usr/share/nginx/html
-COPY frontend/nginx.conf /etc/nginx/conf.d/default.conf
+
+# Copiar configuração customizada do Nginx
+COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 EXPOSE 80
 
