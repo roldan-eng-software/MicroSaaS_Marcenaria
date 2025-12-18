@@ -13,6 +13,9 @@ import StandardProjectList from './pages/Catalog/StandardProjectList';
 import StandardProjectForm from './pages/Catalog/StandardProjectForm';
 import VisitList from './pages/Visits/VisitList';
 import VisitForm from './pages/Visits/VisitForm';
+import MaterialList from './pages/Finance/MaterialList';
+import QuoteList from './pages/Finance/QuoteList';
+import QuoteForm from './pages/Finance/QuoteForm';
 import Profile from './pages/Profile/Profile';
 
 const PrivateRoute = ({ children }) => {
@@ -54,6 +57,10 @@ function App() {
                                     <Route path="/visits/new" element={<VisitForm />} />
                                     <Route path="/visits/new/:customerId" element={<VisitForm />} />
                                     <Route path="/visits/edit/:id" element={<VisitForm />} />
+                                    <Route path="/finance/materials" element={<MaterialList />} />
+                                    <Route path="/finance/quotes" element={<QuoteList />} />
+                                    <Route path="/finance/quotes/new" element={<QuoteForm />} />
+                                    <Route path="/finance/quotes/edit/:id" element={<QuoteForm />} />
                                     <Route path="/customers" element={<CustomerList />} />
                                     <Route path="/customers/new" element={<CustomerForm />} />
                                     <Route path="/customers/edit/:id" element={<CustomerForm />} />

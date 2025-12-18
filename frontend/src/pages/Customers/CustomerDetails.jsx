@@ -35,6 +35,7 @@ export default function CustomerDetails() {
     const [customer, setCustomer] = useState(null);
     const [interactions, setInteractions] = useState([]);
     const [visits, setVisits] = useState([]);
+    const [quotes, setQuotes] = useState([]);
     const [loading, setLoading] = useState(true);
     const [showModal, setShowModal] = useState(false);
 
@@ -70,6 +71,15 @@ export default function CustomerDetails() {
 
             if (visitError) throw visitError;
             setVisits(visitData);
+
+            const { data: quoteData, error: quoteError } = await supabase
+                .from('quotes')
+                .select('*')
+                .eq('customer_id', id)
+                .order('created_at', { ascending: false });
+
+            if (quoteError) throw quoteError;
+            setQuotes(quoteData);
         } catch (error) {
             console.error('Error fetching data:', error);
         } finally {
@@ -186,6 +196,42 @@ export default function CustomerDetails() {
                                         Ver todas as {visits.length} visitas
                                     </Link>
                                 )}
+                            </div>
+                        )}
+                    </div>
+
+                    {/* Quotations Summary */}
+                    <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+                        <h3 className="text-sm font-bold text-gray-900 mb-4 flex items-center">
+                            <FileText className="h-4 w-4 mr-2 text-primary-500" />
+                            Orçamentos Recentes
+                        </h3>
+                        {quotes.length === 0 ? (
+                            <p className="text-xs text-gray-500 italic">Nenhum orçamento emitido.</p>
+                        ) : (
+                            <div className="space-y-3">
+                                {quotes.slice(0, 3).map(quote => (
+                                    <Link
+                                        key={quote.id}
+                                        to={`/finance/quotes/edit/${quote.id}`}
+                                        className="block p-3 rounded-lg bg-gray-50 hover:bg-primary-50 transition-colors group"
+                                    >
+                                        <div className="flex justify-between items-center mb-1">
+                                            <span className="text-[10px] font-bold text-gray-400 uppercase">
+                                                #{quote.quote_number} - {new Date(quote.created_at).toLocaleDateString('pt-BR')}
+                                            </span>
+                                            <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded ${quote.status === 'Aprovado' ? 'bg-green-100 text-green-700' :
+                                                quote.status === 'Recusado' ? 'bg-red-100 text-red-700' :
+                                                    'bg-blue-100 text-blue-700'
+                                                }`}>
+                                                {quote.status}
+                                            </span>
+                                        </div>
+                                        <p className="text-sm font-black text-gray-900 group-hover:text-primary-700 tracking-tight">
+                                            R$ {quote.total.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
+                                        </p>
+                                    </Link>
+                                ))}
                             </div>
                         )}
                     </div>

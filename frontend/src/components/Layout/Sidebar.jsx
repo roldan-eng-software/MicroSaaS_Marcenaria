@@ -1,5 +1,5 @@
 import { Link, useLocation } from 'react-router-dom';
-import { LayoutDashboard, Users, FolderKanban, BookOpen, Wallet, Settings, Calendar } from 'lucide-react';
+import { LayoutDashboard, Users, FolderKanban, BookOpen, Wallet, Settings, Calendar, Box, FileText } from 'lucide-react';
 import clsx from 'clsx';
 
 const navigation = [
@@ -7,6 +7,8 @@ const navigation = [
     { name: 'Catálogo', href: '/catalog', icon: BookOpen },
     { name: 'Clientes', href: '/customers', icon: Users },
     { name: 'Visitas', href: '/visits', icon: Calendar },
+    { name: 'Materiais', href: '/finance/materials', icon: Box },
+    { name: 'Orçamentos', href: '/finance/quotes', icon: FileText },
     { name: 'Projetos', href: '/projects', icon: FolderKanban },
     { name: 'Financeiro', href: '/finance', icon: Wallet },
     { name: 'Perfil', href: '/profile', icon: Settings },
